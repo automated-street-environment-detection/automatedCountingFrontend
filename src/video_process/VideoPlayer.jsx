@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ReactPlayer from 'react-player';
+import CanvasBox from './canvasbox'; 
 
 function VideoPlayer() {
   const [playbackRate, setPlaybackRate] = React.useState(1.0);
@@ -10,12 +11,34 @@ function VideoPlayer() {
 
   const playerRef = React.useRef(null);
 
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (playerRef.current) {
+        const videoElement = playerRef.current.getInternalPlayer();
+        if (videoElement) {
+          setCanvasDimensions({
+            width: videoElement.offsetWidth, // Displayed width
+            height: videoElement.offsetHeight, // Displayed height
+          });
+        }
+      }
+    };
+  
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Set initial dimensions
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleReady = () => {
-    const videoElement = playerRef.current.getInternalPlayer();
-    setCanvasDimensions({
-      width: videoElement.videoWidth,
-      height: videoElement.videoHeight,
-    });
+    if (playerRef.current) {
+      const videoElement = playerRef.current.getInternalPlayer();
+      if (videoElement) {
+        setCanvasDimensions({
+          width: videoElement.videoWidth,
+          height: videoElement.videoHeight,
+        });
+      }
+    }
   };
 
   const handleProgress = (progress) => {
@@ -25,14 +48,16 @@ function VideoPlayer() {
 
   const handleSeekChange = (event) => {
     const newTime = parseFloat(event.target.value);
-    playerRef.current.seekTo(newTime, 'seconds');
-    setPlayerTime(newTime); 
+    if (playerRef.current) {
+      playerRef.current.seekTo(newTime, 'seconds');
+      setPlayerTime(newTime); 
+    }
   };
 
   return (
     <div className="player-wrapper" style={{ position: 'relative', width: '100%', height: '100%' }}>
       <ReactPlayer
-        ref={playerRef} 
+        ref={playerRef}
         className="react-player"
         url="/test1.mov" // Replace with your video file
         width="100%"
@@ -43,7 +68,7 @@ function VideoPlayer() {
         onReady={handleReady} // Call handleReady when the video is ready
         onProgress={handleProgress} // Update the current time and duration
       />
-
+      {canvasDimensions && <CanvasBox dimensions={canvasDimensions} />} {/* Render CanvasBox when dimensions are available */}
 
       <div className="controls">
         <button onClick={() => setPlaybackRate(0.5)}>0.5x</button>
