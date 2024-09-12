@@ -1,6 +1,7 @@
 // import { useState } from "react";
 import CountingButtons from "../components/CountingButtons";
 import { useSelector } from "react-redux";
+import UndoButton from "./undoButton";
 
 const CountingControl = () => {
   const playerTime = useSelector((state) => state.player.playerTime);
@@ -14,6 +15,7 @@ const CountingControl = () => {
     "Vans/Minibuses",
     "Cyclos",
   ];
+
   return (
     <div className="counting-buttons">
       <div>Counting</div>
@@ -21,6 +23,7 @@ const CountingControl = () => {
       {values.map((value, index) => (
         <CountingButtons key={index} name={value} currTime={playerTime} />
       ))}
+      <UndoButton />
     </div>
   );
 };
