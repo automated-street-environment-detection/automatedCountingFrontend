@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import CountingButtons from "../components/CountingButtons";
 import { useSelector } from "react-redux";
-import UndoButton from "./undoButton";
+import UndoButton from "./UndoButton.jsx";
 
 const CountingControl = () => {
   const playerTime = useSelector((state) => state.player.playerTime);
