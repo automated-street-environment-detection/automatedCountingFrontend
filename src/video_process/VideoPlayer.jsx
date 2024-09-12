@@ -69,7 +69,7 @@ function VideoPlayer() {
       <ReactPlayer
         ref={playerRef}
         className="react-player"
-        url="../../assets/TestFootage.MOV" // Replace with your video file
+        url="/TestFootage.MOV" // Replace with your video file
         width="100%"
         height="100%"
         controls={false}
