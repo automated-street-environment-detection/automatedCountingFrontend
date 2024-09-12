@@ -4,6 +4,7 @@ import Home from "./Home/Home";
 import Login from "./Login/Login";
 // import VideoPlayer from "./video_process/VideoPlayer";
 import CountingPage from "./video_process/CountingPage";
+import ChosenVideoPage from "./ChosenVideoPage/ChosenVideoPage";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
         <Route path="/home" element={<Home />} />
-        <Route path="/videoplayer" element={<CountingPage />} />
+        <Route path="/" element={<ChosenVideoPage />} />
+        <Route path="/counting" element={<CountingPage />} />
       </Routes>
     </Router>
   );
