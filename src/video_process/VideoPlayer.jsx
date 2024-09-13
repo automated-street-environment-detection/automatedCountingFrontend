@@ -67,6 +67,8 @@ function VideoPlayer() {
     }
   }, [playerTime]);
 
+  const selectedVideo = useSelector((state) => state.player.selectedVideo);
+
   return (
     <div
       className="player-wrapper"
@@ -75,7 +77,7 @@ function VideoPlayer() {
       <ReactPlayer
         ref={playerRef}
         className="react-player"
-        url="/test1.mov" // Replace with your video file
+        url = "./test1.mov" // for local test use {selectedVideo.url}
         width="100%"
         height="100%"
         controls={false}

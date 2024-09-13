@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectVideo } from '../redux/playerSlice';
 
 const ChosenVideoPage = () => {
-
-  // will be replaced with API call to get video list
   const videolist = [
     { title: "Video 1", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
     { title: "Video 2", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
@@ -12,21 +12,32 @@ const ChosenVideoPage = () => {
     { title: "Video 5", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
   ];
 
-  
-  const [selectedVideo, setSelectedVideo] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [file, setFile] = useState(null);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const selectedVideo = useSelector((state) => state.player.selectedVideo); // Get the selected video from Redux state
 
   const handleVideoSelect = (video) => {
-    setSelectedVideo(video); 
+    dispatch(selectVideo(video));
     navigate('/counting');
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      const newVideo = { title: file.name, url };
+      dispatch(selectVideo(newVideo)); 
+      navigate('/counting');
+    }
   };
 
   const filteredVideos = videolist.filter((video) =>
     video.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Display all videos if no search term, otherwise show filtered results
   const videosToDisplay = searchTerm === "" ? videolist : filteredVideos;
 
   return (
@@ -34,7 +45,11 @@ const ChosenVideoPage = () => {
       <div>
         <button>filter</button>
         <button>upload</button>
-        <button>work on local</button>
+        <input
+          type="file"
+          accept="video/*"
+          onChange={handleFileChange} // Handle file input change
+        />
       </div>
       <div style={{ marginBottom: "20px" }}>
         <input
@@ -62,8 +77,6 @@ const ChosenVideoPage = () => {
           <p>No videos found</p>
         )}
       </div>
-
-      
     </div>
   );
 };
