@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addAction } from "../redux/undoSlice";
 import { incrementCount } from "../redux/countsSlice";
+import Grid from "@mui/material/Grid2";
 
 const CountingButtons = ({ name, currTime }) => {
   const dispatch = useDispatch();
@@ -17,10 +18,16 @@ const CountingButtons = ({ name, currTime }) => {
   };
 
   return (
-    <div>
-      <Button onClick={buttonClick}>{name}</Button>
-      <h1>{value ? value : 0}</h1>
-    </div>
+    <>
+      <Grid size={8}>
+        <Button variant="contained" onClick={buttonClick} fullWidth>
+          {name}
+        </Button>
+      </Grid>
+      <Grid size={4}>
+        <div>{value ? value : 0}</div>
+      </Grid>
+    </>
   );
 };
 

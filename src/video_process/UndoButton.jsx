@@ -17,7 +17,11 @@ const UndoButton = () => {
     // const [value, currTime] = lastAction;
   };
 
-  return <Button onClick={onClick}>Undo</Button>;
+  return (
+    <Button variant="outlined" onClick={onClick}>
+      Undo
+    </Button>
+  );
 };
 
 export default UndoButton;

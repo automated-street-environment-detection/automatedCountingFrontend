@@ -61,6 +61,12 @@ function VideoPlayer() {
     }
   };
 
+  React.useEffect(() => {
+    if (playerRef.current) {
+      playerRef.current.seekTo(playerTime, "seconds");
+    }
+  }, [playerTime]);
+
   return (
     <div
       className="player-wrapper"

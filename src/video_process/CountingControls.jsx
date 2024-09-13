@@ -2,6 +2,7 @@
 import CountingButtons from "../components/CountingButtons";
 import { useSelector } from "react-redux";
 import UndoButton from "./UndoButton.jsx";
+import Grid from "@mui/material/Grid2";
 
 const CountingControl = () => {
   const playerTime = useSelector((state) => state.player.playerTime);
@@ -17,14 +18,16 @@ const CountingControl = () => {
   ];
 
   return (
-    <div className="counting-buttons">
-      <div>Counting</div>
-      <CountingButtons name="Test" currTime={playerTime} />
+    <Grid container spacing={2} alignItems="center">
+      <Grid size={12}>
+        <h2>Counting Controls</h2>
+      </Grid>
+      {/* <CountingButtons name="Test" currTime={playerTime} /> */}
       {values.map((value, index) => (
         <CountingButtons key={index} name={value} currTime={playerTime} />
       ))}
       <UndoButton />
-    </div>
+    </Grid>
   );
 };
 

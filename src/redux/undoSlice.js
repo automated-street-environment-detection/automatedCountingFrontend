@@ -8,6 +8,7 @@ const undoSlice = createSlice({
   },
   reducers: {
     addAction: (state, action) => {
+      state.lastAction = action.payload;
       state.actions.unshift(action.payload);
     },
     popAction: (state) => {
