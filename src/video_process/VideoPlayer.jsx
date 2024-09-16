@@ -14,7 +14,7 @@ function VideoPlayer() {
   const [canvasDimensions, setCanvasDimensions] = React.useState({
     width: 0,
     height: 0,
-  }); // Canvas dimensions
+  }); 
 
   const playerRef = React.useRef(null);
 

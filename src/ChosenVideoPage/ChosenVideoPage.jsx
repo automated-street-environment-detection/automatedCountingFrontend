@@ -1,54 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectVideo } from '../redux/playerSlice';
+import { selectVideo, uploadVideo } from '../redux/playerSlice';
 
 const ChosenVideoPage = () => {
-  const videolist = [
-    { title: "Video 1", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
-    { title: "Video 2", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
-    { title: "Video 3", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
-    { title: "Video 4", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
-    { title: "Video 5", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
-  ];
-
   const [searchTerm, setSearchTerm] = useState("");
-  const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);  // Ref for hidden file input
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const selectedVideo = useSelector((state) => state.player.selectedVideo); // Get the selected video from Redux state
 
+  const videoList = useSelector((state) => state.player.videoList);
+  const selectedVideo = useSelector((state) => state.player.selectedVideo);
+
+  
   const handleVideoSelect = (video) => {
-    dispatch(selectVideo(video));
-    navigate('/counting');
+    dispatch(selectVideo(video)); 
+    navigate('/boundary'); 
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      const newVideo = { title: file.name, url };
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const url = URL.createObjectURL(selectedFile);
+      const newVideo = { title: selectedFile.name, url };
+      dispatch(uploadVideo(newVideo)); 
       dispatch(selectVideo(newVideo)); 
-      navigate('/counting');
     }
   };
 
-  const filteredVideos = videolist.filter((video) =>
+  const handleUploadClick = () => {
+    fileInputRef.current.click();
+  };
+
+  
+  const filteredVideos = videoList.filter((video) =>
     video.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const videosToDisplay = searchTerm === "" ? videolist : filteredVideos;
 
   return (
     <div>
       <div>
-        <button>filter</button>
-        <button>upload</button>
+        <button onClick={handleUploadClick}>Upload</button>
+        {/* Hidden file input for video upload */}
         <input
           type="file"
           accept="video/*"
-          onChange={handleFileChange} // Handle file input change
+          onChange={handleFileChange}
+          ref={fileInputRef}
+          style={{ display: "none" }} 
         />
       </div>
       <div style={{ marginBottom: "20px" }}>
@@ -56,15 +56,15 @@ const ChosenVideoPage = () => {
           type="text"
           placeholder="Search video by title..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Update the search term
+          onChange={(e) => setSearchTerm(e.target.value)} 
         />
       </div>
       <div>
-        {videosToDisplay.length > 0 ? (
-          videosToDisplay.map((video, index) => (
+        {filteredVideos.length > 0 ? (
+          filteredVideos.map((video, index) => (
             <h2
               key={index}
-              onClick={() => handleVideoSelect(video)} // Set the selected video when clicked
+              onClick={() => handleVideoSelect(video)} 
               style={{
                 cursor: "pointer",
                 color: selectedVideo && selectedVideo.title === video.title ? "blue" : "black",

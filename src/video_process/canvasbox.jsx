@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {selectBoundary} from '../redux/playerSlice';
 const CanvasBox = ({ dimensions }) => {
   const canvasRef = useRef(null);
-
+  const  box = useSelector((state) => state.player.selectedBoundary);
   useEffect(() => {
     if (dimensions && canvasRef.current) {
       const canvas = canvasRef.current;
@@ -13,7 +14,7 @@ const CanvasBox = ({ dimensions }) => {
 
       // Clear the canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+   
       // what ever from the previous boundry set up could be lines or boxes
       const boxWidth = 100;
       const boxHeight = 100;
