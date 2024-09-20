@@ -5,15 +5,18 @@ const playerSlice = createSlice({
   initialState: {
     playerTime: 0,
     selectedVideo: null,
+    selectedBoundary: null,
     videoList: [
       { title: "Video 1", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
       { title: "Video 2", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
       { title: "Video 3", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
       { title: "Video 4", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
       { title: "Video 5", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
+      
     ],
     boundaryList : [
     ],
+    canvasDimensions: { width: 0, height: 0 },
   },
   reducers: {
     setPlayerTime(state, action) {
@@ -31,8 +34,11 @@ const playerSlice = createSlice({
     addBoundary: (state, action) => {
       state.boundaryList.push(action.payload);
   },
+  setCanvasDimensions: (state, action) => {
+    state.canvasDimensions = action.payload;
+  },
   },
 });
 
-export const { setPlayerTime, selectVideo,uploadVideo,selectBoundary,addBoundary } = playerSlice.actions;
+export const { setPlayerTime, selectVideo,uploadVideo,selectBoundary,addBoundary,setCanvasDimensions} = playerSlice.actions;
 export default playerSlice.reducer;

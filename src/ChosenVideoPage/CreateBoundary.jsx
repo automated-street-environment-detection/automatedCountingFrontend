@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import VideoPlayer from '../video_process/VideoPlayer';
+import VideoPlayer from '../video_process/VideoPlayerNoBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addBoundary } from '../redux/playerSlice';
