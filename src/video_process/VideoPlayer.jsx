@@ -1,51 +1,58 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import VideoPlayerNoBox from './VideoPlayerNoBox';  // Import VideoPlayer component
-
+import VideoPlayerNoBox from './VideoPlayerNoBox';  
 
 const VideoPlayer = () => {
+  const videoContainerRef = useRef(null); 
   const canvasRef = useRef(null);
-  const box = useSelector((state) => state.player.selectedBoundary);
-  const dimensions = useSelector((state) => state.player.canvasDimensions);
+  
+  const box = useSelector((state) => state.player.selectedBoundary);  // Video source
+
+  // Effect to draw the boundary box on the canvas when dimensions or box changes
   useEffect(() => {
-    if (dimensions && canvasRef.current) {
+    if (canvasRef.current && box) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
 
-      canvas.width = dimensions.width;
-      canvas.height = dimensions.height;
-
-      // Clear the canvas
+      // Clear previous drawings
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw a box or boundary (for demonstration)
+      // Calculate box dimensions and position
       const boxWidth = box.box.width * canvas.width;
       const boxHeight = box.box.height * canvas.height;
-
       const x = box.box.x * canvas.width;
       const y = box.box.y * canvas.height;
+      console.log("2",x,y);
+
+      // Draw the red boundary box
       ctx.strokeStyle = 'red';
       ctx.lineWidth = 2;
       ctx.strokeRect(x, y, boxWidth, boxHeight);
     }
-  }, [dimensions]);
+  }, [box]); // Re-run when dimensions or box changes
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      {/* Render VideoPlayer component */}
-      <VideoPlayerNoBox />
+    <div
+      ref={videoContainerRef} // Video container ref
+      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+    >
+      <VideoPlayerNoBox 
+          style={{
+           position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'
+          }}
+        />
 
-      {/* Canvas positioned on top of the VideoPlayer */}
+      {/* Canvas overlay to draw the boundary box */}
       <canvas
-        ref={canvasRef}
+        ref={canvasRef} 
         style={{
-          position: 'absolute', // Positioned on top
+          position: 'absolute', 
           top: 0,
           left: 0,
-          pointerEvents: 'none', // Prevent mouse events on the canvas
-          zIndex: 1, // Ensure the canvas is above the video player
-          width: dimensions.width,
-          height: dimensions.height,
+          pointerEvents: 'none', 
+          zIndex: 1, 
+          width:'100%', 
+          height:'100%', 
         }}
       />
     </div>
