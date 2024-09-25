@@ -1,9 +1,9 @@
 import * as React from "react";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlayerTime} from "../redux/playerSlice";
+import { setPlayerTime } from "../redux/playerSlice";
 
-function VideoPlayerNoBox({  }) {
+function VideoPlayerNoBox() {
   const dispatch = useDispatch();
   const playerTime = useSelector((state) => state.player.playerTime);
   const [playbackRate, setPlaybackRate] = React.useState(1.0);
@@ -11,11 +11,9 @@ function VideoPlayerNoBox({  }) {
   const [duration, setDuration] = React.useState(0);
   const video = useSelector((state) => state.player.selectedVideo);
   const videoSrc = video.url;
-  
+
   const playerRef = React.useRef(null);
   const videoContainerRef = React.useRef(null);
-
-  
 
   const handleReady = () => {
     if (playerRef.current) {
@@ -44,48 +42,53 @@ function VideoPlayerNoBox({  }) {
 
   return (
     <div
-  ref={videoContainerRef} // Ref for video container
-  className="player-wrapper"// Make sure the container takes full space
->
-  {/* Adjust the ReactPlayer to take 70% of the container */}
-  <div style={{ width: '70%', height: '70%', position: 'relative',top:0,left:0}}>
-    <ReactPlayer
-      ref={playerRef}  
-      className="react-player"
-      url={videoSrc}  
-      width="100%"  
-      height="100%" 
-      controls={false}
-      playbackRate={playbackRate}
-      playing={isPlaying}
-      onReady={handleReady}
-      onProgress={handleProgress}
-    />
-  </div>
+      ref={videoContainerRef}
+      className="player-wrapper" 
+    >
+      {/* Adjust the ReactPlayer to take 70% of the container */}
+      <div style={{ width: '70%', height: '70%', position: 'relative', top: 0, left: 0 }}>
+        <ReactPlayer
+          ref={playerRef}
+          className="react-player"
+          url={videoSrc}
+          width="100%"
+          height="100%"
+          controls={false}
+          playbackRate={playbackRate}
+          playing={isPlaying}
+          onReady={handleReady}
+          onProgress={handleProgress}
+        />
+      </div>
 
-  {/* Control buttons below or to the side of ReactPlayer */}
-  <div className="controls" style={{ marginTop: '10px' }}>
-    <button onClick={() => setPlaybackRate(0.5)}>0.5x</button>
-    <button onClick={() => setPlaybackRate(1.0)}>1x</button>
-    <button onClick={() => setPlaybackRate(1.5)}>1.5x</button>
-    <button onClick={() => setPlaybackRate(2.0)}>2x</button>
-    <button onClick={() => setIsPlaying((prev) => !prev)}>
-      {isPlaying ? "Pause" : "Play"}
-    </button>
-    <div className="progress-bar" style={{ marginTop: '10px' }}>
-      <input
-        type="range"
-        min={0}
-        max={duration}
-        step="0.1"
-        value={playerTime}
-        onChange={handleSeekChange}
-        style={{ width: '100%' }}
-      />
+      {/* Control buttons below or to the side of ReactPlayer */}
+      <div className="controls" style={{ marginTop: '10px', width: '70%', position: 'relative' }}>
+        <button onClick={() => setPlaybackRate(0.5)}>0.5x</button>
+        <button onClick={() => setPlaybackRate(1.0)}>1x</button>
+        <button onClick={() => setPlaybackRate(1.5)}>1.5x</button>
+        <button onClick={() => setPlaybackRate(2.0)}>2x</button>
+        <button onClick={() => setIsPlaying((prev) => !prev)}>
+          {isPlaying ? "Pause" : "Play"}
+        </button>
+
+        <div className="progress-bar" style={{ marginTop: '10px', width: '100%', display: 'flex', alignItems: 'center' }}>
+          <span style={{ marginRight: '10px' }}>
+            {Math.floor(playerTime)} seconds
+          </span>
+          <input
+            type="range"
+            min={0}
+            max={duration}
+            step="0.1"
+            value={playerTime}
+            onChange={handleSeekChange}
+            style={{ flexGrow: 1 }} // Make the input take the available space
+          />
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   );
 }
 
 export default VideoPlayerNoBox;
+

@@ -6,34 +6,35 @@ const VideoPlayer = () => {
   const videoContainerRef = useRef(null); 
   const canvasRef = useRef(null);
   
-  const box = useSelector((state) => state.player.selectedBoundary);  // Video source
+  const box = useSelector((state) => state.player.selectedBoundary); 
 
-  // Effect to draw the boundary box on the canvas when dimensions or box changes
   useEffect(() => {
     if (canvasRef.current && box) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
 
-      // Clear previous drawings
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Calculate box dimensions and position
-      const boxWidth = box.box.width * canvas.width;
-      const boxHeight = box.box.height * canvas.height;
-      const x = box.box.x * canvas.width;
-      const y = box.box.y * canvas.height;
-      console.log("2",x,y);
-
-      // Draw the red boundary box
+      
+      const [startX, startY] = box.box.start;
+      const [endX, endY] = box.box.end;
+   
+     
+      const boxWidth = (endX - startX)*canvas.width;
+      const boxHeight = (endY - startY)*canvas.height;
+        
+      const x = startX * canvas.width;
+      const y = startY * canvas.height;
+      
       ctx.strokeStyle = 'red';
       ctx.lineWidth = 2;
       ctx.strokeRect(x, y, boxWidth, boxHeight);
     }
-  }, [box]); // Re-run when dimensions or box changes
+  }, [box]); 
 
   return (
     <div
-      ref={videoContainerRef} // Video container ref
+      ref={videoContainerRef} 
       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
     >
       <VideoPlayerNoBox 
