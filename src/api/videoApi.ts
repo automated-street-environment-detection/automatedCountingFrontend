@@ -8,3 +8,18 @@ const apiClient = axios.create({
         "Content-Type": "application/json"
     },
 });
+
+export const getVideoNames = async () => {
+    const response = await apiClient.get('/video/names');
+    return response.data;
+};
+
+export const deleteVideo = async () => {
+    const response = await apiClient.delete('/video');
+    return response.data;
+};
+
+export const getBucketId = async () => {
+    const response = await apiClient.get('/bucket/id');
+    return response.data;
+};

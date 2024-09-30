@@ -8,3 +8,18 @@ const apiClient = axios.create({
         "Content-Type": "application/json"
     },
 });
+
+export const getCountingBoundaryNames = async () => {
+    const response = await apiClient.get('/boundary/names');
+    return response.data;
+};
+
+export const postCountingBoundary = async () => {
+    const response = await apiClient.post('/boundary');
+    return response.data;
+};
+
+export const deleteCountingBoundary = async () => {
+    const response = await apiClient.delete('/boundary');
+    return response.data;
+};
