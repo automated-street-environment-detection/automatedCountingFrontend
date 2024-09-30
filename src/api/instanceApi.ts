@@ -10,21 +10,37 @@ const apiClient = axios.create({
 });
 
 export const getDataInstanceNames = async () => {
-    const response = await apiClient.get('/data-instance/names');
-    return response.data;
+    try{
+        const response = await apiClient.get('/data-instance/names');
+        return response.data;
+    } catch (error) {
+        return -1;
+    }
 };
 
 export const postDataInstance = async () => {
-    const response = await apiClient.post('/data-instance');
-    return response.data;
+    try{
+        const response = await apiClient.post('/data-instance');
+        return response.data;
+    } catch (error) {
+        return -1;
+    }
 };
 
 export const patchDataInstance = async () => {
-    const response = await apiClient.patch('/data-instance');
-    return response.data;
+    try{
+        const response = await apiClient.patch('/data-instance');
+        return response.data;
+    } catch (error) {
+        return -1;
+    }
 };
 
 export const deleteDataInstance = async () => {
-    const response = await apiClient.delete('/data-instance');
-    return response.data;
+    try{
+        const response = await apiClient.delete('/data-instance');
+        return response.data;
+    } catch (error) {
+        return -1;
+    }
 };

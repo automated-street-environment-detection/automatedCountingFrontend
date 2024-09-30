@@ -10,16 +10,28 @@ const apiClient = axios.create({
 });
 
 export const getVideoNames = async () => {
-    const response = await apiClient.get('/video/names');
-    return response.data;
+    try{
+        const response = await apiClient.get('/video/names');
+        return response.data;
+    } catch (error) {
+        return -1;
+    }
 };
 
 export const deleteVideo = async () => {
-    const response = await apiClient.delete('/video');
-    return response.data;
+    try{
+        const response = await apiClient.delete('/video');
+        return response.data;
+    } catch (error) {
+        return -1;
+    }
 };
 
 export const getBucketId = async () => {
-    const response = await apiClient.get('/bucket/id');
-    return response.data;
+    try{
+        const response = await apiClient.get('/bucket/id');
+        return response.data;
+    } catch (error) {
+        return -1;
+    }
 };
