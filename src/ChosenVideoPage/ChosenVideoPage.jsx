@@ -37,7 +37,7 @@ const ChosenVideoPage = () => {
   const testAPI = async () => {
     console.log("testAPI called");
     const payload = {};
-    response = await getBucketId();
+    const response = await getBucketId();
     console.log(response);
   };
 
