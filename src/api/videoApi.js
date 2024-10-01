@@ -11,6 +11,10 @@ const apiClient = axios.create({
 
 export const getVideoNames = async () => {
     try{
+        const result = {
+            status : 0,
+            body : {}
+        };
         const response = await apiClient.get('/video/names');
         console.log(response);
 
@@ -32,6 +36,10 @@ export const getVideoNames = async () => {
 
 export const deleteVideo = async (payload) => {
     try {
+        const result = {
+            status : 0,
+            body : {}
+        };
         const response = await apiClient.delete('/video', {
             data: payload, // Send as query params
         });
