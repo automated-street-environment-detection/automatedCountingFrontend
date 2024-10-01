@@ -1,3 +1,7 @@
+import { getCountingBoundaryNames, postCountingBoundary, deleteCountingBoundary } from "../api/boundaryApi";
+import { getDataInstanceNames, postDataInstance, patchDataInstance, deleteDataInstance } from "../api/instanceApi";
+import { getVideoNames, deleteVideo, getBucketId } from "../api/videoApi";
+
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
@@ -35,6 +39,7 @@ const ChosenVideoPage = () => {
         <button>filter</button>
         <button>upload</button>
         <button>work on local</button>
+        <button onClick="getBucketId()">test api call</button>
       </div>
       <div style={{ marginBottom: "20px" }}>
         <input
