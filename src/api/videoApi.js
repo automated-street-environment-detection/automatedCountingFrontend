@@ -12,7 +12,17 @@ const apiClient = axios.create({
 export const getVideoNames = async () => {
     try{
         const response = await apiClient.get('/video/names');
-        return response.data;
+
+        if (response.status === 200) {
+            result.status = 1;
+            result.body = {
+                video_names : response.data.video_names
+            };
+        } else {
+            result.status = 0;
+            result.body = {};
+        }
+        return result;
     } catch (error) {
         return -1;
     }
@@ -23,7 +33,15 @@ export const deleteVideo = async (payload) => {
         const response = await apiClient.delete('/video', {
             data: payload, // Send as query params
         });
-        return response.data;
+        
+        if (response.status === 200) {
+            result.status = 1;
+            result.body = {};
+        } else {
+            result.status = 0;
+            result.body = {};
+        }
+        return result;
     } catch (error) {
         return -1;
     }
@@ -40,7 +58,7 @@ export const getBucketId = async () => {
         if (response.status === 200) {
             result.status = 1;
             result.body = {
-                bucket_id : response.data
+                bucket_id : response.data.S3_bucket_ID
             };
         } else {
             result.status = 0;

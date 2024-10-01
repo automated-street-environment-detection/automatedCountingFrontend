@@ -34,9 +34,26 @@ const ChosenVideoPage = () => {
   // Display all videos if no search term, otherwise show filtered results
   const videosToDisplay = searchTerm === "" ? videolist : filteredVideos;
 
-  const testAPI = async () => {
+  const testAPI1 = async () => {
     const payload = {};
-    const response = await getBucketId();
+    const response = await getVideoNames();
+    console.log(response);
+  };
+  const testAPI2 = async () => {
+    const payload = {
+      video_name : "test_file.png"
+    };
+    const response = await deleteVideo(payload);
+    console.log(response);
+  };
+  const testAPI3 = async () => {
+    const payload = {};
+    const response = await getVideoNames();
+    console.log(response);
+  };
+  const testAPI4 = async () => {
+    const payload = {};
+    const response = await getVideoNames();
     console.log(response);
   };
 
@@ -47,7 +64,10 @@ const ChosenVideoPage = () => {
         <button>filter</button>
         <button>upload</button>
         <button>work on local</button>
-        <button onClick={testAPI}>test api call</button>
+        <button onClick={testAPI1}>test api 1</button>
+        <button onClick={testAPI2}>test api 2</button>
+        <button onClick={testAPI3}>test api 3</button>
+        <button onClick={testAPI4}>test api 4</button>
       </div>
       <div style={{ marginBottom: "20px" }}>
         <input
