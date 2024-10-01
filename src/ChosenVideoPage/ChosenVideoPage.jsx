@@ -57,7 +57,7 @@ const ChosenVideoPage = () => {
     console.log(response);
   };
 
-  console.log("Component Rendered.");
+  console.log("4:28PM");
   return (
     <div>
       <div>
