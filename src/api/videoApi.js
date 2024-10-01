@@ -12,6 +12,7 @@ const apiClient = axios.create({
 export const getVideoNames = async () => {
     try{
         const response = await apiClient.get('/video/names');
+        console.log(response);
 
         if (response.status === 200) {
             result.status = 1;
@@ -24,6 +25,7 @@ export const getVideoNames = async () => {
         }
         return result;
     } catch (error) {
+        console.log(error);
         return -1;
     }
 };
@@ -33,6 +35,7 @@ export const deleteVideo = async (payload) => {
         const response = await apiClient.delete('/video', {
             data: payload, // Send as query params
         });
+        console.log(response);
         
         if (response.status === 200) {
             result.status = 1;
@@ -43,10 +46,12 @@ export const deleteVideo = async (payload) => {
         }
         return result;
     } catch (error) {
+        console.log(error);
         return -1;
     }
 };
 
+// Works as expected
 export const getBucketId = async () => {
     try{
         const result = {
