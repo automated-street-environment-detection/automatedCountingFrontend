@@ -25,7 +25,7 @@ export const getVideoNames = async () => {
         }
         return result;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return -1;
     }
 };
@@ -46,7 +46,7 @@ export const deleteVideo = async (payload) => {
         }
         return result;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return -1;
     }
 };
