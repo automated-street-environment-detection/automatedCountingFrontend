@@ -17,6 +17,7 @@ const ChosenVideoPage = () => {
   ];
 
   
+  
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
@@ -33,13 +34,19 @@ const ChosenVideoPage = () => {
   // Display all videos if no search term, otherwise show filtered results
   const videosToDisplay = searchTerm === "" ? videolist : filteredVideos;
 
+  const testAPI = async () => {
+    const payload = {};
+    response = getBucketId();
+    console.log(response);
+  }
+
   return (
     <div>
       <div>
         <button>filter</button>
         <button>upload</button>
         <button>work on local</button>
-        <button oncClick={getBucketId()}>test api call</button>
+        <button oncClick={testAPI()}>test api call</button>
       </div>
       <div style={{ marginBottom: "20px" }}>
         <input
