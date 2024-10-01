@@ -38,7 +38,7 @@ const ChosenVideoPage = () => {
     const payload = {};
     response = await getBucketId();
     console.log(response);
-  }
+  };
 
   return (
     <div>
@@ -46,7 +46,7 @@ const ChosenVideoPage = () => {
         <button>filter</button>
         <button>upload</button>
         <button>work on local</button>
-        <button oncClick={testAPI}>test api call</button>
+        <button oncClick={() => testAPI()}>test api call</button>
       </div>
       <div style={{ marginBottom: "20px" }}>
         <input
