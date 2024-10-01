@@ -9,27 +9,31 @@ const apiClient = axios.create({
     },
 });
 
-export const getCountingBoundaryNames = async () => {
+export const getCountingBoundaryNames = async (payload: {video_name: string}) => {
     try{
-        const response = await apiClient.get('/boundary/names');
+        const response = await apiClient.get('/boundary/names', {
+            data: payload
+        });
         return response.data;
     } catch (error) {
         return -1;
     }
 };
 
-export const postCountingBoundary = async () => {
+export const postCountingBoundary = async (payload: { video_name: string; boundary_name: string; boundary_data: number[][]}) => {
     try{
-        const response = await apiClient.post('/boundary');
+        const response = await apiClient.post('/boundary', payload);
         return response.data;
     } catch (error) {
         return -1;
     }
 };
 
-export const deleteCountingBoundary = async () => {
+export const deleteCountingBoundary = async (payload: {video_name: string; boundary_name: string}) => {
     try{
-        const response = await apiClient.delete('/boundary');
+        const response = await apiClient.delete('/boundary', {
+            data: payload
+        });
         return response.data;
     } catch (error) {
         return -1;

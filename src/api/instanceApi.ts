@@ -9,36 +9,42 @@ const apiClient = axios.create({
     },
 });
 
-export const getDataInstanceNames = async () => {
+export const getDataInstanceNames = async (payload: {user_email: string; video_name: string; boundary_name: string}) => {
     try{
-        const response = await apiClient.get('/data-instance/names');
+        const response = await apiClient.get('/data-instance/names', {
+            data: payload, // Send in request body
+        });
         return response.data;
     } catch (error) {
         return -1;
     }
 };
 
-export const postDataInstance = async () => {
+export const postDataInstance = async (payload: { user_email: string; video_name: string; boundary_name: string, instance_name: string}) => {
     try{
-        const response = await apiClient.post('/data-instance');
+        const response = await apiClient.post('/data-instance', {
+            data: payload, // Pass payload through request body
+        });
         return response.data;
     } catch (error) {
         return -1;
     }
 };
 
-export const patchDataInstance = async () => {
+export const patchDataInstance = async (payload: { user_email: string; video_name: string; boundary_name: string; instance_name: string; instance_data: string}) => {
     try{
-        const response = await apiClient.patch('/data-instance');
+        const response = await apiClient.patch('/data-instance', payload);
         return response.data;
     } catch (error) {
         return -1;
     }
 };
 
-export const deleteDataInstance = async () => {
+export const deleteDataInstance = async (payload: { user_email: string; video_name: string; boundary_name: string; instance_name: string}) => {
     try{
-        const response = await apiClient.delete('/data-instance');
+        const response = await apiClient.delete('/data-instance', {
+            data: payload // Pass payload through request body
+        });
         return response.data;
     } catch (error) {
         return -1;
