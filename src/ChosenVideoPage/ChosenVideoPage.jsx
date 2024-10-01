@@ -39,7 +39,7 @@ const ChosenVideoPage = () => {
         <button>filter</button>
         <button>upload</button>
         <button>work on local</button>
-        <button>test api call</button>
+        <button oncClick={getBucketId()}>test api call</button>
       </div>
       <div style={{ marginBottom: "20px" }}>
         <input
