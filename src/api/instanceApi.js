@@ -9,7 +9,7 @@ const apiClient = axios.create({
     },
 });
 
-export const getDataInstanceNames = async (payload: {user_email: string; video_name: string; boundary_name: string}) => {
+export const getDataInstanceNames = async (payload) => {
     try{
         const response = await apiClient.get('/data-instance/names', {
             data: payload, // Send in request body
@@ -20,7 +20,7 @@ export const getDataInstanceNames = async (payload: {user_email: string; video_n
     }
 };
 
-export const postDataInstance = async (payload: { user_email: string; video_name: string; boundary_name: string, instance_name: string}) => {
+export const postDataInstance = async (payload) => {
     try{
         const response = await apiClient.post('/data-instance', {
             data: payload, // Pass payload through request body
@@ -31,7 +31,7 @@ export const postDataInstance = async (payload: { user_email: string; video_name
     }
 };
 
-export const patchDataInstance = async (payload: { user_email: string; video_name: string; boundary_name: string; instance_name: string; instance_data: string}) => {
+export const patchDataInstance = async (payload) => {
     try{
         const response = await apiClient.patch('/data-instance', payload);
         return response.data;
@@ -40,7 +40,7 @@ export const patchDataInstance = async (payload: { user_email: string; video_nam
     }
 };
 
-export const deleteDataInstance = async (payload: { user_email: string; video_name: string; boundary_name: string; instance_name: string}) => {
+export const deleteDataInstance = async (payload) => {
     try{
         const response = await apiClient.delete('/data-instance', {
             data: payload // Pass payload through request body

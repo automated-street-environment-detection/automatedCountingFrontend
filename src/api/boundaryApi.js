@@ -5,11 +5,11 @@ const API_BASE_LINK = "https://h50gco47p0.execute-api.us-east-2.amazonaws.com/de
 const apiClient = axios.create({
     baseURL: API_BASE_LINK,
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json"  
     },
 });
 
-export const getCountingBoundaryNames = async (payload: {video_name: string}) => {
+export const getCountingBoundaryNames = async (payload) => {
     try{
         const response = await apiClient.get('/boundary/names', {
             data: payload
@@ -20,7 +20,7 @@ export const getCountingBoundaryNames = async (payload: {video_name: string}) =>
     }
 };
 
-export const postCountingBoundary = async (payload: { video_name: string; boundary_name: string; boundary_data: number[][]}) => {
+export const postCountingBoundary = async (payload) => {
     try{
         const response = await apiClient.post('/boundary', payload);
         return response.data;
@@ -29,8 +29,8 @@ export const postCountingBoundary = async (payload: { video_name: string; bounda
     }
 };
 
-export const deleteCountingBoundary = async (payload: {video_name: string; boundary_name: string}) => {
-    try{
+export async function deleteCountingBoundary(payloads) {
+    try {
         const response = await apiClient.delete('/boundary', {
             data: payload
         });
@@ -38,4 +38,4 @@ export const deleteCountingBoundary = async (payload: {video_name: string; bound
     } catch (error) {
         return -1;
     }
-};
+}

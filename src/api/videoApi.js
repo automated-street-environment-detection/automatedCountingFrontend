@@ -18,7 +18,7 @@ export const getVideoNames = async () => {
     }
 };
 
-export const deleteVideo = async (payload: { video_name: string }) => {
+export const deleteVideo = async (payload) => {
     try {
         const response = await apiClient.delete('/video', {
             data: payload, // Send as query params
