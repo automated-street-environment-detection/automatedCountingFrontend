@@ -35,7 +35,6 @@ const ChosenVideoPage = () => {
   const videosToDisplay = searchTerm === "" ? videolist : filteredVideos;
 
   const testAPI = async () => {
-    console.log("testAPI called");
     const payload = {};
     const response = await getBucketId();
     console.log(response);

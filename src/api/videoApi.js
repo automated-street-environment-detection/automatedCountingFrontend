@@ -31,8 +31,22 @@ export const deleteVideo = async (payload) => {
 
 export const getBucketId = async () => {
     try{
+        const result = {
+            status : 0,
+            body : {}
+        };
         const response = await apiClient.get('/bucket/id');
-        return response;
+
+        if (response.status === 200) {
+            result.status = 1;
+            result.body = {
+                bucket_id : response.data
+            };
+        } else {
+            result.status = 0;
+            result.body = {};
+        }
+        return result;
     } catch (error) {
         return -1;
     }
