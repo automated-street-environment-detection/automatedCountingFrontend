@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_BASE_LINK = "https://h50gco47p0.execute-api.us-east-2.amazonaws.com/dev"
+const DEBUG_MODE = 0; // 1 for verbose output
 
 const apiClient = axios.create({
     baseURL: API_BASE_LINK,
@@ -16,7 +17,10 @@ export const getVideoNames = async () => {
             body : {}
         };
         const response = await apiClient.get('/video/names');
-        console.log(response);
+
+        if (DEBUG_MODE) {
+            console.log(response);
+        }
 
         if (response.status === 200) {
             result.status = 1;
@@ -29,8 +33,13 @@ export const getVideoNames = async () => {
         }
         return result;
     } catch (error) {
-        console.error(error);
-        return -1;
+        if (DEBUG_MODE) {
+            console.error(error);
+        }
+        return {
+            status: -1,
+            body : {}
+        };
     }
 };
 
@@ -43,7 +52,10 @@ export const deleteVideo = async (payload) => {
         const response = await apiClient.delete('/video', {
             data: payload, // Send as query params
         });
-        console.log(response);
+
+        if (DEBUG_MODE) {
+            console.log(response);
+        }
         
         if (response.status === 200) {
             result.status = 1;
@@ -54,8 +66,13 @@ export const deleteVideo = async (payload) => {
         }
         return result;
     } catch (error) {
-        console.error(error);
-        return -1;
+        if (DEBUG_MODE) {
+            console.error(error);
+        }
+        return {
+            status: -1,
+            body : {}
+        };
     }
 };
 
@@ -67,6 +84,9 @@ export const getBucketId = async () => {
             body : {}
         };
         const response = await apiClient.get('/bucket/id');
+        if (DEBUG_MODE) {
+            console.log(response);
+        }
 
         if (response.status === 200) {
             result.status = 1;
@@ -79,6 +99,12 @@ export const getBucketId = async () => {
         }
         return result;
     } catch (error) {
-        return -1;
+        if (DEBUG_MODE) {
+            console.error(error);
+        }
+        return {
+            status: -1,
+            body : {}
+        };
     }
 };
