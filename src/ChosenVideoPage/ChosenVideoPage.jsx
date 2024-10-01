@@ -41,6 +41,7 @@ const ChosenVideoPage = () => {
     console.log(response);
   };
 
+  console.log("Component Rendered.");
   return (
     <div>
       <div>
