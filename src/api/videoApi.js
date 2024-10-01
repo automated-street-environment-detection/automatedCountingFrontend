@@ -32,7 +32,7 @@ export const deleteVideo = async (payload) => {
 export const getBucketId = async () => {
     try{
         const response = await apiClient.get('/bucket/id');
-        return response.data;
+        return response;
     } catch (error) {
         return -1;
     }
