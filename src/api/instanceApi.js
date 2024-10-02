@@ -27,6 +27,7 @@ export const getDataInstanceNames = async (payload) => {
         if (response.status === 200) {
             result.status = 1;
             result.body = {
+                instance_name : response.data.counting_data_instance_names
             };
         } else {
             result.status = 0;
@@ -60,8 +61,7 @@ export const postDataInstance = async (payload) => {
 
         if (response.status === 200) {
             result.status = 1;
-            result.body = {
-            };
+            result.body = {};
         } else {
             result.status = 0;
             result.body = {};
@@ -92,8 +92,7 @@ export const patchDataInstance = async (payload) => {
         
         if (response.status === 200) {
             result.status = 1;
-            result.body = {
-            };
+            result.body = {};
         } else {
             result.status = 0;
             result.body = {};
@@ -126,8 +125,7 @@ export const deleteDataInstance = async (payload) => {
 
         if (response.status === 200) {
             result.status = 1;
-            result.body = {
-            };
+            result.body = {};
         } else {
             result.status = 0;
             result.body = {};
