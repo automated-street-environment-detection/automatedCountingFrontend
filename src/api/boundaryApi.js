@@ -10,6 +10,8 @@ const apiClient = axios.create({
     },
 });
 
+// Payload Schema:
+// { video_name : string }
 export const getCountingBoundaryNames = async (payload) => {
     try{
         const result = {
@@ -45,6 +47,12 @@ export const getCountingBoundaryNames = async (payload) => {
     }
 };
 
+// Payload Schema:
+// { 
+//     video_name : string,
+//     boundary_data : [[int, int],...],
+//     boundary_name : string
+// }
 export const postCountingBoundary = async (payload) => {
     try{
         const result = {
@@ -76,6 +84,11 @@ export const postCountingBoundary = async (payload) => {
     }
 };
 
+// Payload Schema:
+// {
+//     video_name : string,
+//     boundary_name : string
+// }
 export async function deleteCountingBoundary(payloads) {
     try {
         const result = {

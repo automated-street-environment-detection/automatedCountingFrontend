@@ -13,6 +13,11 @@ const apiClient = axios.create({
 
 const s3 = new AWS.S3();
 
+// Payload Schema:
+// {
+//     file_name : string,
+//     video_data : not sure, need to figure out how to parse video data
+// }
 export const postVideo = async (payload) => {
     try{
         const file_name = payload.file_name;
@@ -57,6 +62,8 @@ export const postVideo = async (payload) => {
     }
 };
 
+// Payload Schema:
+// {}
 export const getVideoNames = async () => {
     try{
         const result = {
@@ -90,6 +97,10 @@ export const getVideoNames = async () => {
     }
 };
 
+// Payload Schema:
+// {
+//     video_name : string
+// }
 export const deleteVideo = async (payload) => {
     try {
         const result = {
@@ -123,7 +134,7 @@ export const deleteVideo = async (payload) => {
     }
 };
 
-// Works as expected
+// Likely not used. I hard coded the bucket name 
 export const getBucketId = async () => {
     try{
         const result = {

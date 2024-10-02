@@ -10,6 +10,12 @@ const apiClient = axios.create({
     },
 });
 
+// Payload Schema:
+// {
+//     user_email : string,
+//     video_name : string,
+//     boundary_name : string
+// }
 export const getDataInstanceNames = async (payload) => {
     try{
         const result = {
@@ -45,6 +51,13 @@ export const getDataInstanceNames = async (payload) => {
     }
 };
 
+// Payload Schema:
+// {
+//     user_email : string,
+//     video_name : string,
+//     boundary_name : string,
+//     instance_name : string
+// }
 export const postDataInstance = async (payload) => {
     try{
         const result = {
@@ -78,6 +91,14 @@ export const postDataInstance = async (payload) => {
     }
 };
 
+// Payload Schema:
+// {
+//     user_email : string,
+//     video_name : string,
+//     boundary_name : string,
+//     instance_name : string,
+//     instance_data : stringified json object
+// }
 export const patchDataInstance = async (payload) => {
     try{
         const result = {
@@ -109,6 +130,13 @@ export const patchDataInstance = async (payload) => {
     }
 };
 
+// Payload Schema:
+// {
+//     user_email : string,
+//     video_name : string,
+//     boundary_name : string,
+//     instance_name : string
+// }
 export const deleteDataInstance = async (payload) => {
     try{
         const result = {
