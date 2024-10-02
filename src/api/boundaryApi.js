@@ -27,6 +27,7 @@ export const getCountingBoundaryNames = async (payload) => {
         if (response.status === 200) {
             result.status = 1;
             result.body = {
+                count_boundary_names : response.data.count_boundary_names
             };
         } else {
             result.status = 0;
@@ -58,8 +59,7 @@ export const postCountingBoundary = async (payload) => {
         
         if (response.status === 200) {
             result.status = 1;
-            result.body = {
-            };
+            result.body = {};
         } else {
             result.status = 0;
             result.body = {};
@@ -92,8 +92,7 @@ export async function deleteCountingBoundary(payloads) {
         
         if (response.status === 200) {
             result.status = 1;
-            result.body = {
-            };
+            result.body = {};
         } else {
             result.status = 0;
             result.body = {};
