@@ -46,39 +46,96 @@ const ChosenBoundaryPage = () => {
   }
 
   return (
-    <div>
-      <div>
-        <button onClick={handleCreateButton}>Create Boundary</button>
-        <button onClick={handleBack}>Back</button>
+    <div style={{
+      position: 'absolute',
+      top: '0',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%', 
+      padding: '100px',
+    }}>
+      {/* Button section for creating and going back */}
+      <div style={{ marginBottom: '20px' }}>
+        <button 
+          onClick={handleCreateButton} 
+          style={{
+            padding: '10px 20px',
+            fontSize: '16px',
+            backgroundColor: '#007bff',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            marginRight: '10px',
+          }}
+        >
+          Create Boundary
+        </button>
+        <button 
+          onClick={handleBack} 
+          style={{
+            padding: '10px 20px',
+            fontSize: '16px',
+            backgroundColor: '#6c757d',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+          }}
+        >
+          Back
+        </button>
       </div>
-      <div style={{ marginBottom: "20px" }}>
+    
+      {/* Search input */}
+      <div style={{ marginBottom: '20px' }}>
         <input
           type="text"
           placeholder="Search Boundary by title..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          style={{
+            padding: '10px',
+            fontSize: '16px',
+            width: '100%',
+            maxWidth: '400px',
+            borderRadius: '5px',
+            border: '1px solid #ddd',
+          }}
         />
       </div>
-      <div>
+    
+      {/* Boundaries Table */}
+      <div style={{ width: '100%', maxWidth: '800px' }}>
         {filteredBoundaries.length > 0 ? (
-          filteredBoundaries.map((boundary) => (
-            <h2
-              key={boundary.title}
-              onClick={() => handleBoundarySelect(boundary)}
-              onContextMenu={(e) => handleBoundaryRightClick(e, boundary)} 
-              style={{
-                cursor: "pointer",
-                color: selectedBoundary && selectedBoundary.title === boundary.title ? "blue" : "black", 
-              }}
-            >
-              {boundary.title}
-            </h2>
-          ))
+          <table style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #ddd' }}>
+            <thead>
+              <tr style={{ backgroundColor: '#f2f2f2' }}>
+                <th style={{ padding: '10px', textAlign: 'left' }}>Boundary Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredBoundaries.map((boundary) => (
+                <tr 
+                  key={boundary.title} 
+                  style={{ cursor: 'pointer', backgroundColor: selectedBoundary && selectedBoundary.title === boundary.title ? '#d1e7dd' : '#fff' }}
+                  onClick={() => handleBoundarySelect(boundary)}
+                  onContextMenu={(e) => handleBoundaryRightClick(e, boundary)}
+                >
+                  <td style={{ padding: '10px', border: '1px solid #ddd' }}>
+                    {boundary.title}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         ) : (
           <h2>No Boundaries Found</h2>
         )}
       </div>
-    </div>
+    </div>    
   );
 }
 

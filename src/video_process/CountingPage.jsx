@@ -10,7 +10,7 @@ const CountingPage = () => {
         container
         spacing={2}
         alignItems="center"
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        columnSpacing={{ xs: 1, sm: 5, md: 3 }}
       >
         <Grid size={9}>
           <VideoPlayer />

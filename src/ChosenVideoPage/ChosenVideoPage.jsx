@@ -45,10 +45,35 @@ const ChosenVideoPage = () => {
   );
 
   return (
-    <div>
-      <div>
-        <button onClick={handleUploadClick}>Upload</button>
-        {/* Hidden file input for video upload */}
+    <div style={{
+      position: 'absolute',
+      top: '0',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%', 
+      padding: '100px',
+    }}>
+      {/* Upload button and search input aligned horizontally */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        marginBottom: "40px"
+      }}>
+        <button onClick={handleUploadClick} style={{
+          padding: "15px 30px",
+          fontSize: "20px",
+          backgroundColor: "#007BFF",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          marginRight: "20px"
+        }}>
+          Upload
+        </button>
+    
         <input
           type="file"
           accept="video/*"
@@ -56,36 +81,66 @@ const ChosenVideoPage = () => {
           ref={fileInputRef}
           style={{ display: "none" }} 
         />
-      </div>
-      <div style={{ marginBottom: "20px" }}>
+    
         <input
           type="text"
           placeholder="Search video by title..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} 
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{
+            padding: "15px",
+            fontSize: "18px",
+            width: "400px",
+            borderRadius: "5px",
+            border: "1px solid #ddd"
+          }}
         />
       </div>
-      <div>
+    
+      {/* Video list in a table format */}
+      <div style={{ width: "100%", maxWidth: "900px" }}>
         {filteredVideos.length > 0 ? (
-          filteredVideos.map((video, index) => (
-            <h2
-              key={index}
-              onClick={() => handleVideoSelect(video)} 
-              onContextMenu={(e) => handleVideoRightClick(e, video)} 
-              style={{
-                cursor: "pointer",
-                color: selectedVideo && selectedVideo.title === video.title ? "blue" : "black",
-              }}
-            >
-              {video.title}
-            </h2>
-          ))
+          <table style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            border: "1px solid #ddd"
+          }}>
+            <thead>
+              <tr>
+                <th style={{
+                  padding: "15px",
+                  fontSize: "20px",
+                  textAlign: "left",
+                  borderBottom: "2px solid #ddd"
+                }}>
+                  Video List
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredVideos.map((video, index) => (
+                <tr key={index}>
+                  <td style={{
+                    padding: "15px",
+                    fontSize: "18px",
+                    cursor: "pointer",
+                    color: selectedVideo && selectedVideo.title === video.title ? "blue" : "black",
+                    borderBottom: "1px solid #ddd"
+                  }} 
+                  onClick={() => handleVideoSelect(video)} 
+                  onContextMenu={(e) => handleVideoRightClick(e, video)}>
+                    {video.title}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         ) : (
-          <p>No videos found</p>
+          <p style={{ fontSize: "20px", textAlign: "center" }}>No videos found</p>
         )}
       </div>
     </div>
-  );
+  );    
 };
 
 export default ChosenVideoPage;
