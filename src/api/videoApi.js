@@ -101,6 +101,47 @@ export const getVideoNames = async () => {
 // {
 //     video_name : string
 // }
+export const getVideoURL = async (payload) => {
+    try{
+        const result = {
+            status : 0,
+            body : {}
+        };
+        const response = await apiClient.get('/video/url', {
+            data : payload.video_name
+        });
+
+        if (DEBUG_MODE) {
+            console.log(response);
+        }
+
+        if (response.status === 200) {
+            result.status = 1;
+            result.body = {
+                s3_bucket_ID : response.s3_Bucket_ID,
+                video_name : response.video_name,
+                video_url : response.video_url
+            };
+        } else {
+            result.status = 0;
+            result.body = {};
+        }
+        return result;
+    } catch (error) {
+        if (DEBUG_MODE) {
+            console.error(error);
+        }
+        return {
+            status: -1,
+            body : {}
+        };
+    }
+};
+
+// Payload Schema:
+// {
+//     video_name : string
+// }
 export const deleteVideo = async (payload) => {
     try {
         const result = {
