@@ -134,6 +134,47 @@ export const patchDataInstance = async (payload) => {
 // {
 //     user_email : string,
 //     video_name : string,
+//     boundary_name : string
+// }
+export const getDataInstance = async (payload) => {
+    try{
+        const result = {
+            status : 0,
+            body : {}
+        };
+
+        const response = await apiClient.get('/data-instance', {
+            data: payload, // Pass payload through request body
+        });
+        if (DEBUG_MODE) {
+            console.log(response);
+        }
+
+        if (response.status === 200) {
+            result.status = 1;
+            result.body = {
+                csv_data : response.csv_data
+            };
+        } else {
+            result.status = 0;
+            result.body = {};
+        }
+        return result;
+    } catch (error) {
+        if (DEBUG_MODE) {
+            console.error(error);
+        }
+        return {
+            status: -1,
+            body : {}
+        };
+    }
+};
+
+// Payload Schema:
+// {
+//     user_email : string,
+//     video_name : string,
 //     boundary_name : string,
 //     instance_name : string
 // }

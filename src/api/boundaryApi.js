@@ -121,3 +121,43 @@ export async function deleteCountingBoundary(payloads) {
         };
     }
 }
+
+// Payload Schema:
+// {
+//     video_name : string,
+//     boundary_name : string
+// }
+export async function getCountingBoundary(payloads) {
+    try {
+        const result = {
+            status : 0,
+            body : {}
+        };
+
+        const response = await apiClient.get('/boundary', {
+            data: payload
+        });
+        if (DEBUG_MODE) {
+            console.log(response);
+        }
+        
+        if (response.status === 200) {
+            result.status = 1;
+            result.body = {
+                boundary_data : response.counting_boundary_data
+            };
+        } else {
+            result.status = 0;
+            result.body = {};
+        }
+        return result;
+    } catch (error) {
+        if (DEBUG_MODE) {
+            console.error(error);
+        }
+        return {
+            status: -1,
+            body : {}
+        };
+    }
+}
