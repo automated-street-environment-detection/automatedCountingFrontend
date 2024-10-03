@@ -21,6 +21,7 @@ function App() {
         <Route path="/boundary" element={<ChosenBoundaryPage />} />
         <Route path="/boundaryCreate" element={<CreateBoundary />} />
         <Route path="/ChosenCountsPage" element={<ChosenCountspage />} />
+        <Route path="/LoginPage" element={<Login />} />
       </Routes>
     </Router>
   );
