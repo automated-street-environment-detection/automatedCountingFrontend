@@ -1,114 +1,63 @@
-import * as React from "react";
-import ReactPlayer from "react-player";
-import CanvasBox from "./canvasbox";
-import { useDispatch, useSelector } from "react-redux";
-import { setPlayerTime } from "../redux/playerSlice";
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import VideoPlayerNoBox from './VideoPlayerNoBox';  
 
-function VideoPlayer() {
-  const dispatch = useDispatch();
-  const playerTime = useSelector((state) => state.player.playerTime);
-  const [playbackRate, setPlaybackRate] = React.useState(1.0);
-  const [isPlaying, setIsPlaying] = React.useState(true);
-  // const [playerTime, setPlayerTime] = React.useState(0); // State to track current time
-  const [duration, setDuration] = React.useState(0); // State to track video duration
-  const [canvasDimensions, setCanvasDimensions] = React.useState({
-    width: 0,
-    height: 0,
-  }); // Canvas dimensions
+const VideoPlayer = () => {
+  const videoContainerRef = useRef(null); 
+  const canvasRef = useRef(null);
+  
+  const box = useSelector((state) => state.player.selectedBoundary); 
 
-  const playerRef = React.useRef(null);
+  useEffect(() => {
+    if (canvasRef.current && box) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
 
-  React.useEffect(() => {
-    const handleResize = () => {
-      if (playerRef.current) {
-        const videoElement = playerRef.current.getInternalPlayer();
-        if (videoElement) {
-          setCanvasDimensions({
-            width: videoElement.offsetWidth, // Displayed width
-            height: videoElement.offsetHeight, // Displayed height
-          });
-        }
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Set initial dimensions
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const handleReady = () => {
-    if (playerRef.current) {
-      const videoElement = playerRef.current.getInternalPlayer();
-      if (videoElement) {
-        setCanvasDimensions({
-          width: videoElement.videoWidth,
-          height: videoElement.videoHeight,
-        });
-      }
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      const [startX, startY] = box.box.start;
+      const [endX, endY] = box.box.end;
+   
+     
+      const boxWidth = (endX - startX)*canvas.width;
+      const boxHeight = (endY - startY)*canvas.height;
+        
+      const x = startX * canvas.width;
+      const y = startY * canvas.height;
+      
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x, y, boxWidth, boxHeight);
     }
-  };
-
-  const handleProgress = (progress) => {
-    dispatch(setPlayerTime(progress.playedSeconds));
-    setDuration(progress.loadedSeconds || playerRef.current.getDuration());
-  };
-
-  const handleSeekChange = (event) => {
-    const newTime = parseFloat(event.target.value);
-    if (playerRef.current) {
-      playerRef.current.seekTo(newTime, "seconds");
-      dispatch(setPlayerTime(newTime));
-    }
-  };
-
-  React.useEffect(() => {
-    if (playerRef.current) {
-      playerRef.current.seekTo(playerTime, "seconds");
-    }
-  }, [playerTime]);
+  }, [box]); 
 
   return (
     <div
-      className="player-wrapper"
-      style={{ position: "relative", width: "100%", height: "100%" }}
+      ref={videoContainerRef} 
+      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
     >
-      <ReactPlayer
-        ref={playerRef}
-        className="react-player"
-        url="/test1.mov" // Replace with your video file
-        width="100%"
-        height="100%"
-        controls={false}
-        playbackRate={playbackRate}
-        playing={isPlaying}
-        onReady={handleReady} // Call handleReady when the video is ready
-        onProgress={handleProgress} // Update the current time and duration
-      />
-      {canvasDimensions && <CanvasBox dimensions={canvasDimensions} />}{" "}
-      {/* Render CanvasBox when dimensions are available */}
-      <div className="controls">
-        <button onClick={() => setPlaybackRate(0.5)}>0.5x</button>
-        <button onClick={() => setPlaybackRate(1.0)}>1x</button>
-        <button onClick={() => setPlaybackRate(1.5)}>1.5x</button>
-        <button onClick={() => setPlaybackRate(2.0)}>2x</button>
-        <button onClick={() => setIsPlaying((prev) => !prev)}>
-          {isPlaying ? "Pause" : "Play"}
-        </button>
+      <VideoPlayerNoBox 
+          style={{
+           position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'
+          }}
+        />
 
-        <div className="progress-bar" style={{ marginTop: "10px" }}>
-          <input
-            type="range"
-            min={0}
-            max={duration}
-            step="0.1"
-            value={playerTime}
-            onChange={handleSeekChange}
-            style={{ width: "100%" }}
-          />
-        </div>
-      </div>
+      {/* Canvas overlay to draw the boundary box */}
+      <canvas
+        ref={canvasRef} 
+        style={{
+          position: 'absolute', 
+          top: 0,
+          left: 0,
+          pointerEvents: 'none', 
+          zIndex: 1, 
+          width:'100%', 
+          height:'100%', 
+        }}
+      />
     </div>
   );
-}
+};
 
 export default VideoPlayer;

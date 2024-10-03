@@ -4,6 +4,7 @@ const countsSlice = createSlice({
   name: "counts",
   initialState: {
     counts: {},
+    countsList:[],
   },
   reducers: {
     incrementCount: (state, action) => {
@@ -16,8 +17,28 @@ const countsSlice = createSlice({
         state.counts[action.payload] -= 1;
       }
     },
+    //addCounttoCountList(count)
+    addCounttoCountList:(state,action)=>{
+      state.countsList.push(action.payload);
+    },
+    //selectCount(count)
+    selectCount: (state, action) => {
+      state.counts = action.payload;
+    },
+    //updateCountInList(count)
+    updateCountInList: (state, action) => {
+      const updatedCount = action.payload;
+      const index = state.countsList.findIndex((count) => count.title === updatedCount.title);
+      if (index !== -1) {
+        state.countsList[index] = updatedCount; 
+      }
+    },
+    //deleteCount(count.title)
+    deleteCount: (state, action) => {
+      state.countsList = state.countsList.filter(count => count.title !== action.payload);
+    }
   },
 });
 
-export const { incrementCount, undoCount } = countsSlice.actions;
+export const { incrementCount, undoCount,addCounttoCountList,selectCount,updateCountInList,deleteCount } = countsSlice.actions;
 export default countsSlice.reducer;
