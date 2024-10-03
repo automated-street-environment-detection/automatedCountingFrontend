@@ -112,9 +112,8 @@ const CreateBoundary = () => {
       </div>
       <div
         style={{
-          position: 'absolute',
-          top: '900px', 
-          left: '10px',
+          position: 'relative',  // This makes the parent a reference point for positioning
+          top: '600px',  
         }}
       >
         <input 
