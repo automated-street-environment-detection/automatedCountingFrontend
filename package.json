@@ -16,14 +16,18 @@
     "@mui/icons-material": "^6.0.1",
     "@mui/material": "^6.1.1",
     "@reduxjs/toolkit": "^2.2.7",
+    "aws-sdk": "^2.1691.0",
+    "axios": "^1.7.7",
     "frontendautomatedcounting": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-player": "^2.16.0",
-    "react-redux": "^9.1.2"
+    "react-redux": "^9.1.2",
+    "tsc": "^2.0.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@types/node": "^22.7.4",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
