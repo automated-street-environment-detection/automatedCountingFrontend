@@ -1,12 +1,16 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectVideo, uploadVideo, deleteVideo } from '../redux/playerSlice';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectVideo, uploadVideo, deleteVideo } from "../redux/playerSlice";
+import { Button, Container, Grid2, TextField } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+// import { Grid } from "@aws-amplify/ui-react";
+import VideoPanel from "../components/VideoPanel";
 
 const ChosenVideoPage = () => {
-
   const [searchTerm, setSearchTerm] = useState("");
-  const fileInputRef = useRef(null); 
+  const fileInputRef = useRef(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,8 +19,8 @@ const ChosenVideoPage = () => {
   const selectedVideo = useSelector((state) => state.player.selectedVideo);
 
   const handleVideoSelect = (video) => {
-    dispatch(selectVideo(video)); 
-    navigate('/boundary'); 
+    dispatch(selectVideo(video));
+    navigate("/boundary");
   };
 
   const handleFileChange = (e) => {
@@ -24,8 +28,8 @@ const ChosenVideoPage = () => {
     if (selectedFile) {
       const url = URL.createObjectURL(selectedFile);
       const newVideo = { title: selectedFile.name, url };
-      dispatch(uploadVideo(newVideo)); 
-      dispatch(selectVideo(newVideo)); 
+      dispatch(uploadVideo(newVideo));
+      dispatch(selectVideo(newVideo));
     }
   };
 
@@ -34,10 +38,13 @@ const ChosenVideoPage = () => {
   };
 
   const handleVideoRightClick = (e, video) => {
-    e.preventDefault(); 
-    const confirmDelete = window.confirm(`Are you sure you want to delete the video titled "${video.title}"?`);
+    e.stopPropagation();
+    e.preventDefault();
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete the video titled "${video.title}"?`
+    );
     if (confirmDelete) {
-      dispatch(deleteVideo(video.title)); 
+      dispatch(deleteVideo(video.title));
     }
   };
 
@@ -46,102 +53,50 @@ const ChosenVideoPage = () => {
   );
 
   return (
-    <div style={{
-      position: 'absolute',
-      top: '0',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '100%', 
-      padding: '100px',
-    }}>
-      {/* Upload button and search input aligned horizontally */}
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        marginBottom: "40px"
-      }}>
-        <button onClick={handleUploadClick} style={{
-          padding: "15px 30px",
-          fontSize: "20px",
-          backgroundColor: "#007BFF",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          marginRight: "20px"
-        }}>
-          Upload
-        </button>
-    
+    <Container style={{ marginTop: "100px" }}>
+      <Grid2 container spacing={2}>
+        <Grid2>
+          <Button
+            onClick={handleUploadClick}
+            sx={{ padding: 2, marginLeft: 4 }}
+            variant="outlined"
+            startIcon={<CloudUploadIcon />}
+          >
+            Upload
+          </Button>
+        </Grid2>
+
         <input
           type="file"
           accept="video/*"
           onChange={handleFileChange}
           ref={fileInputRef}
-          style={{ display: "none" }} 
+          style={{ display: "none" }}
         />
-    
-        <input
-          type="text"
-          placeholder="Search video by title..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            padding: "15px",
-            fontSize: "18px",
-            width: "400px",
-            borderRadius: "5px",
-            border: "1px solid #ddd"
-          }}
+        <Grid2>
+          <TextField
+            variant="outlined" // Use "filled" or "standard" for different styles
+            placeholder="Search video by title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </Grid2>
+      </Grid2>
+      {filteredVideos.length > 0 ? (
+        <VideoPanel
+          videos={filteredVideos}
+          handleClick={handleVideoSelect}
+          handleDelete={handleVideoRightClick}
         />
-      </div>
-    
-      {/* Video list in a table format */}
-      <div style={{ width: "100%", maxWidth: "900px" }}>
-        {filteredVideos.length > 0 ? (
-          <table style={{
-            width: "100%",
-            borderCollapse: "collapse",
-            border: "1px solid #ddd"
-          }}>
-            <thead>
-              <tr>
-                <th style={{
-                  padding: "15px",
-                  fontSize: "20px",
-                  textAlign: "left",
-                  borderBottom: "2px solid #ddd"
-                }}>
-                  Video List
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredVideos.map((video, index) => (
-                <tr key={index}>
-                  <td style={{
-                    padding: "15px",
-                    fontSize: "18px",
-                    cursor: "pointer",
-                    color: selectedVideo && selectedVideo.title === video.title ? "blue" : "black",
-                    borderBottom: "1px solid #ddd"
-                  }} 
-                  onClick={() => handleVideoSelect(video)} 
-                  onContextMenu={(e) => handleVideoRightClick(e, video)}>
-                    {video.title}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p style={{ fontSize: "20px", textAlign: "center" }}>No videos found</p>
-        )}
-      </div>
-    </div>
-  );    
+      ) : (
+        <div style={{ fontSize: "20px", textAlign: "center" }}>
+          No videos found
+        </div>
+      )}
+      {/* </div>
+    </div> */}
+    </Container>
+  );
 };
 
 export default ChosenVideoPage;

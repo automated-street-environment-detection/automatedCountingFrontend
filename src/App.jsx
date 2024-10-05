@@ -1,6 +1,5 @@
 import Navbar from "./Navbar/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Home/Home";
 import Login from "./Login/Login";
 // import VideoPlayer from "./video_process/VideoPlayer";
 import CountingPage from "./video_process/CountingPage";
@@ -15,7 +14,7 @@ function App() {
       <Navbar />
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/home" element={<Home />} />
+
         <Route path="/" element={<ChosenVideoPage />} />
         <Route path="/counting" element={<CountingPage />} />
         <Route path="/boundary" element={<ChosenBoundaryPage />} />

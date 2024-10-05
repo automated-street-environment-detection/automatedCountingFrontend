@@ -3,6 +3,7 @@ import playerReducer from "./playerSlice";
 import undoReducer from "./undoSlice";
 import countReducer from "./countsSlice";
 import signInReducer from "./signInSlice";
+// import fetchVideoNames from "./axios/getVideoNamesSlice";
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     undo: undoReducer,
     counts: countReducer,
     signIn: signInReducer,
+    // videoNames: fetchVideoNames,
   },
 });

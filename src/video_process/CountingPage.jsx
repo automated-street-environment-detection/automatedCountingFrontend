@@ -2,24 +2,25 @@ import VideoPlayer from "./VideoPlayer";
 import CountingControl from "./CountingControls";
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
+import { Container } from "@mui/material";
 
 const CountingPage = () => {
   return (
-    <Box>
+    <>
       <Grid
         container
         spacing={2}
         alignItems="center"
         columnSpacing={{ xs: 1, sm: 5, md: 3 }}
       >
-        <Grid size={9}>
+        <Grid size={10}>
           <VideoPlayer />
         </Grid>
-        <Grid size={3}>
+        <Grid size={2}>
           <CountingControl />
         </Grid>
       </Grid>
-    </Box>
+    </>
   );
 };
 

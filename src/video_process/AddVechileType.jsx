@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const AddVechileType = ({ values }) => {
+const AddVechileType = ({ values, setValues }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -35,7 +35,7 @@ const AddVechileType = ({ values }) => {
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
             const category = formJson.category;
-            values.push(category);
+            setValues([...values, category]);
             handleClose();
           },
         }}
@@ -58,7 +58,7 @@ const AddVechileType = ({ values }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
+          <Button type="submit">Add</Button>
         </DialogActions>
       </Dialog>
     </>
