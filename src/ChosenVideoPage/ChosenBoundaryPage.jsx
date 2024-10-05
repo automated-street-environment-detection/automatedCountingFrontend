@@ -12,7 +12,7 @@ const ChosenBoundaryPage = () => {
   // Check if selectedVideo is empty and navigate back
   useEffect(() => {
     if (!selectedVideo || !selectedVideo.title) {
-        navigate("/"); // Adjust the route based on your actual path
+        navigate('/video'); // Adjust the route based on your actual path
     }
 }, [selectedVideo, navigate]);
 
@@ -42,7 +42,7 @@ const ChosenBoundaryPage = () => {
     }
   };
   const handleBack = () => {
-    navigate('/');
+    navigate('/video');
   }
 
   return (

@@ -5,6 +5,7 @@ const countsSlice = createSlice({
   initialState: {
     counts: {},
     countsList:[],
+    timestamps:[]
   },
   reducers: {
     incrementCount: (state, action) => {
@@ -17,6 +18,17 @@ const countsSlice = createSlice({
         state.counts[action.payload] -= 1;
       }
     },
+    incrementTimeStamp: (state, action) => {
+      const { type, timestamp } = action.payload; 
+      const currentCount = state.counts[type] || 0; 
+      state.timestamps.push({ type, timestamp, presentCount: currentCount }); 
+    },
+
+    // Undo the last timestamp entry
+    undoTimeStamp: (state) => {
+      state.timestamps.pop(); 
+      console.log(state.timestamps);
+    },
     //addCounttoCountList(count)
     addCounttoCountList:(state,action)=>{
       state.countsList.push(action.payload);
@@ -24,6 +36,12 @@ const countsSlice = createSlice({
     //selectCount(count)
     selectCount: (state, action) => {
       state.counts = action.payload;
+      if(state.counts.title!=null){
+        state.timestamps = state.counts.timestamps;
+      }
+      else{
+        state.timestamps = [];
+      }
     },
     //updateCountInList(count)
     updateCountInList: (state, action) => {
@@ -40,5 +58,6 @@ const countsSlice = createSlice({
   },
 });
 
-export const { incrementCount, undoCount,addCounttoCountList,selectCount,updateCountInList,deleteCount } = countsSlice.actions;
+export const { incrementCount, undoCount,incrementTimeStamp,
+undoTimeStamp,addCounttoCountList,selectCount,updateCountInList,deleteCount } = countsSlice.actions;
 export default countsSlice.reducer;

@@ -8,6 +8,8 @@ const SaveButton = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const selectedCount = useSelector((state) => state.counts.counts);
+  const timestamps1 = useSelector((state) => state.counts.timestamps);
+  
   const [title1, setTitle1] = useState('');
   const [open, setOpen] = useState(false); 
 
@@ -16,7 +18,12 @@ const SaveButton = () => {
     if (selectedCount.title == null) {
       setOpen(true); // Open the dialog
     } else {
-      dispatch(updateCountInList(selectedCount));
+      const updatedCount = {
+        ...selectedCount,
+        timestamps: [...timestamps1], // Use spread to create a new array
+      };
+      dispatch(updateCountInList(updatedCount));
+      console.log(updatedCount);
       Navigate('/ChosenCountsPage');
     }
   };
@@ -32,7 +39,7 @@ const SaveButton = () => {
       return;
     }
 
-    const updatedCount = { ...selectedCount, title: title1 };
+    const updatedCount = { ...selectedCount, title: title1,timestamps:timestamps1};
     dispatch(addCounttoCountList(updatedCount));
     handleClose(); 
     console.log(updatedCount);

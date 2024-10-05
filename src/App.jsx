@@ -15,12 +15,12 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
 
-        <Route path="/" element={<ChosenVideoPage />} />
+        <Route path="/video" element={<ChosenVideoPage />} />
         <Route path="/counting" element={<CountingPage />} />
         <Route path="/boundary" element={<ChosenBoundaryPage />} />
         <Route path="/boundaryCreate" element={<CreateBoundary />} />
         <Route path="/ChosenCountsPage" element={<ChosenCountspage />} />
-        <Route path="/LoginPage" element={<Login />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </Router>
   );

@@ -20,7 +20,7 @@ export default function Login() {
     e.preventDefault();
     dispatch(login(username));
     console.log("Logged");
-    navigate("/");
+    navigate("/video");
   };
 
   const handleChange = (e) => {

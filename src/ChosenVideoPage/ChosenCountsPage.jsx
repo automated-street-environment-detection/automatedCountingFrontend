@@ -8,8 +8,8 @@ const ChosenCountsPage = () => {
     const selectedCount = useSelector((state) => state.counts.counts);
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
-    const selectedVideo = useSelector((state) => state.player.selectedVideo); // Access selectedVideo
-
+    
+    
    
 
     const countsList = useSelector(state => state.counts.countsList);
@@ -19,7 +19,7 @@ const ChosenCountsPage = () => {
     );
 
     const handleCreateButton = () => {
-        dispatch(selectCount({ title: null }));
+        dispatch(selectCount({ title: null}));
         navigate("/counting");
     };
 
@@ -29,21 +29,24 @@ const ChosenCountsPage = () => {
     };
 
     const downloadCSV = (count) => {
-        const headers = Object.keys(count); 
-        const row = Object.values(count);   
-        const csvContent = [headers, row].map(e => e.join(",")).join("\n");
-        
-        
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement("a");
-        const url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", `${count.title}.csv`); 
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+      const headers = ["Type", "Timestamp", "PresentCount"];
+      
+      const rows = count.timestamps.map(ts => [ts.type, ts.timestamp, ts.presentCount]);
+  
+      const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+  
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `${count.title}.csv`); // File name with indication of data
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      navigate('/counts');
+  };
+  
 
     const handleCountRightClick = (e, count) => {
         e.preventDefault();
@@ -53,7 +56,7 @@ const ChosenCountsPage = () => {
         }
     };
     const handleBack = () => { 
-        navigate('/'); 
+        navigate('/video'); 
     };
 
     return (
@@ -168,5 +171,4 @@ const ChosenCountsPage = () => {
 };
 
 export default ChosenCountsPage;
-
 
