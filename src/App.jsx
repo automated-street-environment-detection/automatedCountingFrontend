@@ -6,7 +6,7 @@ import CountingPage from "./video_process/CountingPage";
 import ChosenVideoPage from "./ChosenVideoPage/ChosenVideoPage";
 import ChosenBoundaryPage from "./ChosenVideoPage/ChosenBoundaryPage";
 import CreateBoundary from "./ChosenVideoPage/CreateBoundary";
-import ChosenCountspage from "./ChosenVideoPage/ChosenCountspage";
+import ChosenCountspage from "./ChosenVideoPage/ChosenCountsPage";
 
 function App() {
   return (
