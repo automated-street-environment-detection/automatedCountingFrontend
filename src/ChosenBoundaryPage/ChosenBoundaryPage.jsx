@@ -4,6 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectBoundary, deleteBoundary } from "../redux/playerSlice";
 import { Button, Container, Grid2, TextField } from "@mui/material";
 import VideoPanel from "../components/VideoPanel";
+import {
+  deleteCountingBoundary,
+  getCountingBoundary,
+  getCountingBoundaryNames,
+} from "../api/boundaryApi";
+import { setBoundaryList } from "../redux/playerSlice";
 
 const ChosenBoundaryPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,11 +18,6 @@ const ChosenBoundaryPage = () => {
 
   const selectedVideo = useSelector((state) => state.player.selectedVideo); // Access selectedVideo
   // Check if selectedVideo is empty and navigate back
-  useEffect(() => {
-    if (!selectedVideo || !selectedVideo.title) {
-      navigate("/"); // Adjust the route based on your actual path
-    }
-  }, [selectedVideo, navigate]);
 
   const boundaryList = useSelector((state) => state.player.boundaryList);
   const selectedBoundary = useSelector(
@@ -28,14 +29,51 @@ const ChosenBoundaryPage = () => {
   );
 
   const handleBoundarySelect = (boundary) => {
-    dispatch(selectBoundary(boundary));
-    navigate("/ChosenCountsPage");
+    const getBoundaryData = async () => {
+      try {
+        const payload = {
+          video_name: selectedVideo.title,
+          boundary_name: boundary.title,
+        };
+
+        const response = await getCountingBoundary(payload);
+        // console.log(response);
+        if (response.status == 1) {
+          const b = {
+            box: {
+              start: response.body.boundary_data[0],
+              end: response.body.boundary_data[1],
+            },
+            title: boundary.title,
+          };
+          dispatch(selectBoundary(b));
+          navigate("/ChosenCountsPage");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getBoundaryData();
+    // console.log(boundary);
+    // dispatch(selectBoundary(boundary));
   };
 
   const handleCreateButton = () => {
     navigate("/boundaryCreate");
   };
   const handleBoundaryRightClick = (e, boundary) => {
+    const deleteBoundary = async () => {
+      try {
+        const payload = {
+          video_name: selectedVideo.title,
+          boundary_name: boundary.title,
+        };
+        const response = await deleteCountingBoundary(payload);
+        navigate("/boundary");
+      } catch (error) {
+        console.error(error);
+      }
+    };
     e.preventDefault();
     const confirmDelete = window.confirm(
       `Are you sure you want to delete the boundary titled "${boundary.title}"?`
@@ -45,8 +83,35 @@ const ChosenBoundaryPage = () => {
     }
   };
   const handleBack = () => {
-    navigate("/");
+    navigate("/video");
   };
+
+  useEffect(() => {
+    const getBoundaries = async () => {
+      try {
+        const response = await getCountingBoundaryNames({
+          video_name: selectedVideo.title,
+        });
+        if (response.status == 1) {
+          console.log(
+            response.body.count_boundary_names.map((boundary) => {
+              return { title: boundary };
+            })
+          );
+          dispatch(
+            setBoundaryList(
+              response.body.count_boundary_names.map((boundary) => {
+                return { title: boundary };
+              })
+            )
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getBoundaries();
+  }, []);
 
   return (
     <Container style={{ marginTop: "100px" }}>

@@ -7,8 +7,8 @@ import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 // import { Grid } from "@aws-amplify/ui-react";
 import VideoPanel from "../components/VideoPanel";
-import getVideoNames from "../axios/getVideoNames";
-// import { getVideoURL } from "../api/videoApi";
+
+import { getVideoNames, getVideoURL } from "../api/videoApi";
 
 const ChosenVideoPage = () => {
   const username = useSelector((state) => state.signIn.username);
@@ -19,19 +19,31 @@ const ChosenVideoPage = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const videoNames = useSelector((state) => state.getVideoNames.videoNames);
+  const [videoNames, setVideoNames] = useState([]);
 
   const videoList = useSelector((state) => state.player.videoList);
   const selectedVideo = useSelector((state) => state.player.selectedVideo);
 
   const handleVideoSelect = (video) => {
-    // console.log(video);
-    const payload = { video_name: video };
-    console.log(payload);
-    // const res = getVideoURL(payload);
-    // console.log(res);
-    // dispatch(selectVideo(video));
-    // navigate("/boundary");
+    const awaitURL = async () => {
+      try {
+        const response = await getVideoURL({ video_name: video.title });
+        if (response.status == 1) {
+          const selectedVideo = {
+            title: video.title,
+            url: response.body.video_url,
+          };
+          dispatch(selectVideo(selectedVideo));
+          console.log("Moving to boundary");
+
+          navigate("/boundary");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    awaitURL();
   };
 
   const handleFileChange = (e) => {
@@ -62,14 +74,19 @@ const ChosenVideoPage = () => {
   const [filteredVideos, setFilteredVideos] = useState([]);
 
   useEffect(() => {
-    getVideoNames();
+    const awaitNames = async () => {
+      const response = await getVideoNames();
+      if (response.status == 1) {
+        setVideoNames(response.body.video_names);
+        setFilteredVideos(
+          response.body.video_names.map((vid) => {
+            return { title: vid };
+          })
+        );
+      }
+    };
+    awaitNames();
   }, []);
-
-  useEffect(() => {
-    // console.log(`data:`);
-    console.log(videoNames);
-    setFilteredVideos(videoNames);
-  }, [videoNames]);
 
   return (
     <Container style={{ marginTop: "100px" }}>

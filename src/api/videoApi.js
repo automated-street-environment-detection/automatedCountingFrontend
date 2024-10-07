@@ -1,5 +1,9 @@
 import axios from "axios";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import store from "../redux/store";
+import { setData } from "../redux/api/getVideoNames";
+import { setVideoURL } from "../redux/api/getVideoURL";
+import { selectVideo } from "../redux/playerSlice";
 
 const API_BASE_LINK =
   "https://h50gco47p0.execute-api.us-east-2.amazonaws.com/dev";
@@ -80,16 +84,18 @@ export const getVideoNames = async () => {
     if (DEBUG_MODE) {
       console.log(response);
     }
-
+    // console.log(response);
     if (response.status === 200) {
       result.status = 1;
       result.body = {
-        video_names: response.data.video_names,
+        video_names: JSON.parse(response.data.body).video_names,
       };
     } else {
       result.status = 0;
       result.body = {};
     }
+    // console.log(result);
+    store.dispatch(setData(result.body));
     return result;
   } catch (error) {
     if (DEBUG_MODE) {
@@ -119,18 +125,21 @@ export const getVideoURL = async (payload) => {
     if (DEBUG_MODE) {
       console.log(response);
     }
+    console.log(response);
 
     if (response.status === 200) {
       result.status = 1;
       result.body = {
-        s3_bucket_ID: response.S3_Bucket_ID,
-        video_name: response.video_name,
-        video_url: response.video_url,
+        s3_bucket_ID: response.data.S3_Bucket_ID,
+        video_name: response.data.video_name,
+        video_url: response.data.video_url,
       };
     } else {
       result.status = 0;
       result.body = {};
     }
+    console.log(result);
+
     return result;
   } catch (error) {
     if (DEBUG_MODE) {
