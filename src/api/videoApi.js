@@ -112,9 +112,7 @@ export const getVideoURL = async (payload) => {
       status: 0,
       body: {},
     };
-    const response = await apiClient.get("/video/url", {
-      data: payload.video_name,
-    });
+    const response = await apiClient.post("/video/url", payload);
 
     if (DEBUG_MODE) {
       console.log(response);
@@ -123,7 +121,7 @@ export const getVideoURL = async (payload) => {
     if (response.status === 200) {
       result.status = 1;
       result.body = {
-        s3_bucket_ID: response.s3_Bucket_ID,
+        s3_bucket_ID: response.S3_Bucket_ID,
         video_name: response.video_name,
         video_url: response.video_url,
       };
