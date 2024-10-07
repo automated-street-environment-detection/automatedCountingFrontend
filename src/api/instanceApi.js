@@ -132,7 +132,7 @@ export const patchDataInstance = async (payload) => {
 
 // Payload Schema:
 // {
-//     user_email : string,
+//     user_id : string,
 //     video_name : string,
 //     boundary_name : string
 // }
@@ -143,9 +143,9 @@ export const getDataInstance = async (payload) => {
             body : {}
         };
 
-        const response = await apiClient.get('/data-instance', {
-            data: payload, // Pass payload through request body
-        });
+        // Temporary FIX: get cannot pass data through body. Switched to POST
+        // TODO: Change back to GET and parse query parameters in AWS Lambda
+        const response = await apiClient.post('/data-instance/get', payload);
         if (DEBUG_MODE) {
             console.log(response);
         }
