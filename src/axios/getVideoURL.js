@@ -1,17 +1,17 @@
 import axios from "axios";
-import { API_GET_VIDEO_NAMES_URL } from "./constants";
+import { API_GET_VIDEOURL_URL } from "./constants";
 import store from "../redux/store";
-import { setData } from "../redux/api/getVideoNames";
+import { setVideoURL } from "../redux/api/getVideoURL";
 // import { useDispatch } from "react-redux";
 
-const getVideoNames = () => {
+const getVideoURL = (payload) => {
   // const dispatch = useDispatch();
   axios
-    .get(API_GET_VIDEO_NAMES_URL)
+    .get(API_GET_VIDEOURL_URL, { video_name: payload })
     .then(function (response) {
       // handle success
-      store.dispatch(setData(response.data));
-      // console.log(response);
+      store.dispatch(setVideoURL(response.data));
+      console.log(response);
     })
     .catch(function (error) {
       // handle error
@@ -22,4 +22,4 @@ const getVideoNames = () => {
     });
 };
 
-export default getVideoNames;
+export default getVideoURL;

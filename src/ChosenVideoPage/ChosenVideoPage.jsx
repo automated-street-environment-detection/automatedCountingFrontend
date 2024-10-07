@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectVideo, uploadVideo, deleteVideo } from "../redux/playerSlice";
@@ -7,20 +7,31 @@ import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 // import { Grid } from "@aws-amplify/ui-react";
 import VideoPanel from "../components/VideoPanel";
+import getVideoNames from "../axios/getVideoNames";
+// import { getVideoURL } from "../api/videoApi";
 
 const ChosenVideoPage = () => {
+  const username = useSelector((state) => state.signIn.username);
   const [searchTerm, setSearchTerm] = useState("");
   const fileInputRef = useRef(null);
 
+  // if (!username) navigate("/loginpage");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const videoNames = useSelector((state) => state.getVideoNames.videoNames);
 
   const videoList = useSelector((state) => state.player.videoList);
   const selectedVideo = useSelector((state) => state.player.selectedVideo);
 
   const handleVideoSelect = (video) => {
-    dispatch(selectVideo(video));
-    navigate("/boundary");
+    // console.log(video);
+    const payload = { video_name: video };
+    console.log(payload);
+    // const res = getVideoURL(payload);
+    // console.log(res);
+    // dispatch(selectVideo(video));
+    // navigate("/boundary");
   };
 
   const handleFileChange = (e) => {
@@ -41,16 +52,24 @@ const ChosenVideoPage = () => {
     e.stopPropagation();
     e.preventDefault();
     const confirmDelete = window.confirm(
-      `Are you sure you want to delete the video titled "${video.title}"?`
+      `Are you sure you want to delete the video titled "${video}"?`
     );
     if (confirmDelete) {
       dispatch(deleteVideo(video.title));
     }
   };
 
-  const filteredVideos = videoList.filter((video) =>
-    video.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [filteredVideos, setFilteredVideos] = useState([]);
+
+  useEffect(() => {
+    getVideoNames();
+  }, []);
+
+  useEffect(() => {
+    // console.log(`data:`);
+    console.log(videoNames);
+    setFilteredVideos(videoNames);
+  }, [videoNames]);
 
   return (
     <Container style={{ marginTop: "100px" }}>

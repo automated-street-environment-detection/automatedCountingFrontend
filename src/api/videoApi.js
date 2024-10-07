@@ -1,5 +1,5 @@
 import axios from "axios";
-const AWS = require("aws-sdk");
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 const API_BASE_LINK =
   "https://h50gco47p0.execute-api.us-east-2.amazonaws.com/dev";
@@ -12,7 +12,7 @@ const apiClient = axios.create({
   },
 });
 
-const s3 = new AWS.S3();
+const s3 = new S3Client();
 
 // Payload Schema:
 // {
@@ -29,19 +29,21 @@ export const postVideo = async (payload) => {
       Expires: 120,
     };
 
-    const url = s3.getSignedUrl("putObject", params);
+    const command = new PutObjectCommand(params);
+    const response = await s3.send(command);
+    // const url = s3.getSignedUrl("putObject", params);
 
-    const response = axios.put(url, video_data, {
-      headers: {
-        "Content-Type": "video/mp4",
-      },
-      onUploadProgress: (progressEvent) => {
-        const progress = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-        console.log("Upload progress: ${progress}%");
-      },
-    });
+    // const response = axios.put(url, video_data, {
+    //   headers: {
+    //     "Content-Type": "video/mp4",
+    //   },
+    //   onUploadProgress: (progressEvent) => {
+    //     const progress = Math.round(
+    //       (progressEvent.loaded * 100) / progressEvent.total
+    //     );
+    //     console.log("Upload progress: ${progress}%");
+    //   },
+    // });
 
     if (response.status === 200) {
       return {

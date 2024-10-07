@@ -3,3 +3,6 @@ export const API_BASE_LINK =
 
 export const API_GET_VIDEO_NAMES_URL =
   "https://h50gco47p0.execute-api.us-east-2.amazonaws.com/dev/video/names";
+
+export const API_GET_VIDEOURL_URL =
+  "https://h50gco47p0.execute-api.us-east-2.amazonaws.com/dev/video/url";

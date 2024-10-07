@@ -4,9 +4,9 @@ import Login from "./Login/Login";
 // import VideoPlayer from "./video_process/VideoPlayer";
 import CountingPage from "./video_process/CountingPage";
 import ChosenVideoPage from "./ChosenVideoPage/ChosenVideoPage";
-import ChosenBoundaryPage from "./ChosenVideoPage/ChosenBoundaryPage";
+import ChosenBoundaryPage from "./ChosenBoundaryPage/ChosenBoundaryPage";
 import CreateBoundary from "./ChosenVideoPage/CreateBoundary";
-import ChosenCountspage from "./ChosenVideoPage/ChosenCountsPage";
+import ChosenCountspage from "./ChosenCountsPage/ChosenCountsPage";
 
 function App() {
   return (

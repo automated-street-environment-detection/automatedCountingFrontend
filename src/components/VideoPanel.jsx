@@ -10,7 +10,7 @@ const VideoPanel = ({ videos, handleClick, handleDelete }) => {
             <Grid2 container spacing={2}>
               <Grid2 size={11}>
                 <Typography variant="h1" component="h1" gutterBottom>
-                  {video.title}
+                  {video}
                 </Typography>
               </Grid2>
               <Grid2 size={1}>
