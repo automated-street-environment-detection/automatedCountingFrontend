@@ -19,9 +19,9 @@ export const getCountingBoundaryNames = async (payload) => {
             body : {}
         };
 
-        const response = await apiClient.get('/boundary/names', {
-            data: payload
-        });
+        // TEMP FIX: Switched from GET to POST because JS doesn't allow data to be passed through body on GET calls
+        // TODO: Switch back to GET and update AWS LAMBDA to accept query parameters.
+        const response = await apiClient.post('/boundary/names', payload);
         if (DEBUG_MODE) {
             console.log(response);
         }
@@ -89,7 +89,7 @@ export const postCountingBoundary = async (payload) => {
 //     video_name : string,
 //     boundary_name : string
 // }
-export async function deleteCountingBoundary(payloads) {
+export async function deleteCountingBoundary(payload) {
     try {
         const result = {
             status : 0,
