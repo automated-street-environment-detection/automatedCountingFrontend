@@ -112,6 +112,8 @@ export const getVideoURL = async (payload) => {
       status: 0,
       body: {},
     };
+    // Uses post in order to pass variables through body.
+    // TODO: parse query parameters on server side
     const response = await apiClient.post("/video/url", payload);
 
     if (DEBUG_MODE) {
