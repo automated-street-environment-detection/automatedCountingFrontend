@@ -12,12 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Navbar() {
   const navigate = useNavigate();
   const loggedIn = useSelector((state) => state.signIn.loggedIn);
-  const username = useSelector((state) => state.signIn.username);
+  const username = localStorage.getItem("username");
   const onClick = () => {
     if (loggedIn) {
       console.log("Login");
     } else {
-      navigate("/loginPage");
+      navigate("/");
     }
   };
 

@@ -3,7 +3,7 @@
 // import "@aws-amplify/ui-react/styles.css";
 // import outputs from "../amplify_outputs.json";
 
-import { Box, Button, Paper, TextField } from "@mui/material";
+import { Box, Button, Grid2, Paper, TextField } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,9 +18,12 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const onClick = (e) => {
     e.preventDefault();
-    dispatch(login(username));
-    console.log("Logged");
-    navigate("/video");
+    if (username.length > 0) {
+      dispatch(login(username));
+      localStorage.setItem("username", username);
+      console.log("Logged");
+      navigate("/video  ");
+    }
   };
 
   const handleChange = (e) => {
@@ -34,29 +37,29 @@ export default function Login() {
       alignItems="center" // Center vertically
       height="100vh" // Full viewport height
     >
-      <Paper elevation={3}>
-        <Box
-          sx={{
-            width: 300, // Example width
-            height: 200, // Example height
-            // Example background color
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+      <Paper elevation={6}>
+        <Grid2 container spacing={4} style={{ padding: 25 }}>
           <form onSubmit={onClick}>
-            <TextField
-              label="Username"
-              color="secondary"
-              value={username}
-              onChange={handleChange}
-            />
-            <Button type="submit" variant="contained">
-              Sign In
-            </Button>
+            <Grid2 size={12}>
+              <TextField
+                label="Username"
+                color="secondary"
+                value={username}
+                onChange={handleChange}
+                style={{ marginBottom: 10 }}
+              />
+            </Grid2>
+            <Grid2 size={12}>
+              <Button
+                type="submit"
+                variant="contained"
+                style={{ marginTop: 5 }}
+              >
+                Sign In
+              </Button>
+            </Grid2>
           </form>
-        </Box>
+        </Grid2>
       </Paper>
     </Box>
   );
