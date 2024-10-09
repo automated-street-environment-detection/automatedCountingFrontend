@@ -62,6 +62,7 @@ const ChosenBoundaryPage = () => {
     navigate("/boundaryCreate");
   };
   const handleBoundaryRightClick = (e, boundary) => {
+    e.stopPropagation();
     const deleteBoundary = async () => {
       try {
         const payload = {
@@ -93,11 +94,10 @@ const ChosenBoundaryPage = () => {
           video_name: selectedVideo.title,
         });
         if (response.status == 1) {
-          console.log(
-            response.body.count_boundary_names.map((boundary) => {
-              return { title: boundary };
-            })
-          );
+          response.body.count_boundary_names.map((boundary) => {
+            return { title: boundary };
+          });
+
           dispatch(
             setBoundaryList(
               response.body.count_boundary_names.map((boundary) => {

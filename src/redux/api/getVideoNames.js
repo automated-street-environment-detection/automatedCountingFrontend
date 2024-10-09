@@ -8,7 +8,7 @@ const getVideoNamesSlice = createSlice({
   },
   reducers: {
     setData: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.data = action.payload;
       state.videoNames = action.payload.video_names;
     },

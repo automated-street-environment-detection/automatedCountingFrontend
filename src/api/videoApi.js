@@ -125,7 +125,7 @@ export const getVideoURL = async (payload) => {
     if (DEBUG_MODE) {
       console.log(response);
     }
-    console.log(response);
+    // console.log(response);
 
     if (response.status === 200) {
       result.status = 1;
@@ -138,7 +138,7 @@ export const getVideoURL = async (payload) => {
       result.status = 0;
       result.body = {};
     }
-    console.log(result);
+    // console.log(result);
 
     return result;
   } catch (error) {

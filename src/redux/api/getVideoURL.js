@@ -8,7 +8,7 @@ const getVideoURL = createSlice({
   },
   reducers: {
     setVideoURL: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.data = action.payload;
       state.url = action.payload.video_url;
     },

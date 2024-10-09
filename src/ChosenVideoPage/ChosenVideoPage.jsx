@@ -21,6 +21,7 @@ const ChosenVideoPage = () => {
   const [videoNames, setVideoNames] = useState([]);
 
   const [videoList, setvideolist] = useState([]);
+  const selectedVideo = useSelector((state) => state.player.selectedVideo);
 
   const handleVideoSelect = (video) => {
     const awaitURL = async () => {
@@ -32,7 +33,7 @@ const ChosenVideoPage = () => {
             url: response.body.video_url,
           };
           dispatch(selectVideo(selectedVideo));
-          console.log("Moving to boundary");
+          // console.log("Moving to boundary");
 
           navigate("/boundary");
         }

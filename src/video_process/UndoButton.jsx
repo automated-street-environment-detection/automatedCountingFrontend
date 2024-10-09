@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { popAction } from "../redux/undoSlice";
-import { undoCount, undoTimeStamp } from "../redux/countsSlice";
+import { undoCount } from "../redux/countsSlice";
 import { setPlayerTime } from "../redux/playerSlice";
 
 const UndoButton = () => {
@@ -13,7 +13,6 @@ const UndoButton = () => {
     if (lastAction) {
       dispatch(undoCount(lastAction[0]));
       dispatch(setPlayerTime(lastAction[1]));
-      dispatch(undoTimeStamp());
     }
     // const [value, currTime] = lastAction;
   };
@@ -26,4 +25,3 @@ const UndoButton = () => {
 };
 
 export default UndoButton;
-
