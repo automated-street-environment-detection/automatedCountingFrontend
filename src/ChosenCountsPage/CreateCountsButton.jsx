@@ -33,7 +33,8 @@ const CreateCountsButton = () => {
   };
 
   const handleCreateButton = (t) => {
-    dispatch(selectCount({ title: t }));
+    dispatch(setTitle(t));
+
     navigate("/counting");
   };
 
