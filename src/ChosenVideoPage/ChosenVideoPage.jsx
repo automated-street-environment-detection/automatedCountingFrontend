@@ -21,7 +21,7 @@ const ChosenVideoPage = () => {
   const dispatch = useDispatch();
   const [videoNames, setVideoNames] = useState([]);
 
-  const videoList = useSelector((state) => state.player.videoList);
+  const [videoList, setvideolist] = useState([]);
   const selectedVideo = useSelector((state) => state.player.selectedVideo);
 
   const handleVideoSelect = (video) => {
@@ -71,14 +71,16 @@ const ChosenVideoPage = () => {
     }
   };
 
-  const [filteredVideos, setFilteredVideos] = useState([]);
+  const filteredVideos = videoList.filter((video) =>
+    video.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     const awaitNames = async () => {
       const response = await getVideoNames();
       if (response.status == 1) {
         setVideoNames(response.body.video_names);
-        setFilteredVideos(
+        setvideolist(
           response.body.video_names.map((vid) => {
             return { title: vid };
           })
