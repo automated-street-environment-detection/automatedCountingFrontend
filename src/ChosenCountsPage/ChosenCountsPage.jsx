@@ -23,34 +23,6 @@ const ChosenCountsPage = () => {
     count.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleCountSelect = (count) => {
-    dispatch(setTitle(count));
-    navigate("/counting");
-  };
-
-  const downloadCSV = (count) => {
-    const headers = ["Type", "Timestamp", "PresentCount"];
-
-    const rows = count.timestamps.map((ts) => [
-      ts.type,
-      ts.timestamp,
-      ts.presentCount,
-    ]);
-
-    const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
-
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-    link.setAttribute("href", url);
-    link.setAttribute("download", `${count.title}.csv`); // File name with indication of data
-    link.style.visibility = "hidden";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    navigate("/counts");
-  };
-
   const handleCountRightClick = (e, count) => {
     const deleteCounts = async () => {
       try {
