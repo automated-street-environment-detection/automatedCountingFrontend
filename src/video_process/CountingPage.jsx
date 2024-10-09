@@ -26,7 +26,7 @@ const CountingPage = () => {
           const response = await getDataInstance(payload);
           console.log(response);
           if (response.status == 1) {
-            dispatch(strified2OBJ(response.body.csv_data));
+            dispatch(strified2OBJ(response.body.instance_data));
           }
         } catch (error) {
           console.error(error);

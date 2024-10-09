@@ -21,7 +21,6 @@ const ExportToCSV = () => {
       };
       const response = await getDataInstance(payload);
       const count = JSON.parse(response.body.instance_data);
-      console.log(count);
 
       const headers = ["Type", "Timestamp"];
       const rows = count.timestamps.map((ts) => [
