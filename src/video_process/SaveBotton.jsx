@@ -21,7 +21,6 @@ const SaveButton = () => {
   const selectedBoundary = useSelector(
     (state) => state.player.selectedBoundary
   );
-  const counts = useSelector((state) => state.counts.counts);
 
   const [title1, setTitle1] = useState("");
   const [open, setOpen] = useState(false);
@@ -36,14 +35,14 @@ const SaveButton = () => {
         timestamps: [...timestamps1], // Use spread to create a new array
       };
       dispatch(updateCountInList(updatedCount));
-      console.log(updatedCount);
+      console.log(timestamps1);
       const setData = async () => {
         try {
           const payload = {
             user_email: localStorage.getItem("username"),
             video_name: selectedVideo.title,
             boundary_name: selectedBoundary.title,
-            instance_data: JSON.stringify(counts),
+            instance_data: JSON.stringify(updatedCount),
           };
           const response = await patchDataInstance(payload);
           if (response.status === 1) {

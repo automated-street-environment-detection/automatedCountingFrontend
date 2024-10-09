@@ -151,10 +151,10 @@ export const getDataInstance = async (payload) => {
     }
 
     if (response.status === 200) {
-      // console.log(response);
+      console.log(response);
       result.status = 1;
       result.body = {
-        csv_data: response.data,
+        instance_data: response.data,
       };
     } else {
       result.status = 0;

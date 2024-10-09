@@ -8,7 +8,7 @@ import {
   clearCountsList,
   setCountList,
 } from "../redux/countsSlice";
-import { deleteDataInstance, getDataInstanceNames } from "../api/instanceApi";
+import { deleteDataInstance, getDataInstanceNames,getDataInstance } from "../api/instanceApi";
 import CreateCountsButton from "./CreateCountsButton";
 
 const ChosenCountsPage = () => {
@@ -28,12 +28,38 @@ const ChosenCountsPage = () => {
   );
 
   const handleCountSelect = (count) => {
-    dispatch(selectCount(count));
+    const getCounts1 = async () => {
+    try {
+      const payload = {
+        user_id: localStorage.getItem("username"),
+        video_name: selectedVideo.title,
+        boundary_name: selectedBoundary.title,
+      };
+      // console.log(payload);
+      const response = await getDataInstance(payload);
+      count = JSON.parse(response.body.instance_data);
+      dispatch(selectCount(count));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+    getCounts1();
     navigate("/counting");
+    
   };
 
   const downloadCSV = (count) => {
-    const headers = ["Type", "Timestamp", "PresentCount"];
+    const getCounts1 = async () => {
+      try {
+        const payload = {
+          user_id: localStorage.getItem("username"),
+          video_name: selectedVideo.title,
+          boundary_name: selectedBoundary.title,
+        };
+        // console.log(payload);
+        const response = await getDataInstance(payload);
+        count = JSON.parse(response.body.instance_data);
+        const headers = ["Type", "Timestamp", "PresentCount"];
 
     const rows = count.timestamps.map((ts) => [
       ts.type,
@@ -52,7 +78,14 @@ const ChosenCountsPage = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    navigate("/counts");
+    navigate("/ChosenCountsPage");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    
+    getCounts1();
+    console.log(count);
   };
 
   const handleCountRightClick = (e, count) => {
