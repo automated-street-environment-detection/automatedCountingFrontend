@@ -63,14 +63,16 @@ const ChosenBoundaryPage = () => {
   };
   const handleBoundaryRightClick = (e, boundary) => {
     e.stopPropagation();
-    const deleteBoundary = async () => {
+    const deleteData = async () => {
       try {
         const payload = {
           video_name: selectedVideo.title,
           boundary_name: boundary.title,
         };
         const response = await deleteCountingBoundary(payload);
-        navigate("/boundary");
+        if (response.status == 1) {
+          navigate("/boundary");
+        }
       } catch (error) {
         console.error(error);
       }
@@ -80,6 +82,7 @@ const ChosenBoundaryPage = () => {
       `Are you sure you want to delete the boundary titled "${boundary.title}"?`
     );
     if (confirmDelete) {
+      deleteData();
       dispatch(deleteBoundary(boundary.title));
     }
   };

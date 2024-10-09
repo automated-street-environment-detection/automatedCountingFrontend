@@ -10,7 +10,7 @@ import VideoPanel from "../components/VideoPanel";
 
 import { getVideoNames, getVideoURL } from "../api/videoApi";
 
-const ChosenVideoPage = () => {
+const ChosenVideoPage = ({ videoList }) => {
   const username = useSelector((state) => state.signIn.username);
   const [searchTerm, setSearchTerm] = useState("");
   const fileInputRef = useRef(null);
@@ -18,9 +18,7 @@ const ChosenVideoPage = () => {
   // if (!username) navigate("/loginpage");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [videoNames, setVideoNames] = useState([]);
 
-  const [videoList, setvideolist] = useState([]);
   const selectedVideo = useSelector((state) => state.player.selectedVideo);
 
   const handleVideoSelect = (video) => {
@@ -70,24 +68,11 @@ const ChosenVideoPage = () => {
     }
   };
 
-  const filteredVideos = videoList.filter((video) =>
-    video.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  useEffect(() => {
-    const awaitNames = async () => {
-      const response = await getVideoNames();
-      if (response.status == 1) {
-        setVideoNames(response.body.video_names);
-        setvideolist(
-          response.body.video_names.map((vid) => {
-            return { title: vid };
-          })
-        );
-      }
-    };
-    awaitNames();
-  }, []);
+  const filteredVideos = videoList
+    ? videoList.filter((video) =>
+        video.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <Container style={{ marginTop: "100px" }}>

@@ -7,6 +7,7 @@ import ChosenVideoPage from "./ChosenVideoPage/ChosenVideoPage";
 import ChosenBoundaryPage from "./ChosenBoundaryPage/ChosenBoundaryPage";
 import CreateBoundary from "./ChosenVideoPage/CreateBoundary";
 import ChosenCountspage from "./ChosenCountsPage/ChosenCountsPage";
+import Home from "./ChosenVideoPage/Home";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
 
-        <Route path="/video" element={<ChosenVideoPage />} />
+        <Route path="/video" element={<Home />} />
         <Route path="/counting" element={<CountingPage />} />
         <Route path="/boundary" element={<ChosenBoundaryPage />} />
         <Route path="/boundaryCreate" element={<CreateBoundary />} />

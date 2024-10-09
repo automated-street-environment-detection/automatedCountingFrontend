@@ -8,11 +8,29 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import NavDrawer from "./NavDrawer";
+import { Drawer } from "@mui/material";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const loggedIn = useSelector((state) => state.signIn.loggedIn);
   const username = localStorage.getItem("username");
+
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen) => {
+    console.log("drawerClick");
+    setDrawerOpen(newOpen);
+  };
+
+  const handleDrawerOpen = () => {
+    setDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+  };
+
   const onClick = () => {
     if (loggedIn) {
       console.log("Login");
@@ -31,6 +49,7 @@ export default function Navbar() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={handleDrawerOpen}
           >
             <MenuIcon />
           </IconButton>
@@ -42,6 +61,9 @@ export default function Navbar() {
           </Button>
         </Toolbar>
       </AppBar>
+      <Drawer open={drawerOpen} onClose={handleDrawerClose}>
+        <NavDrawer handleDrawerClose={handleDrawerClose} />
+      </Drawer>
     </Box>
   );
 }
