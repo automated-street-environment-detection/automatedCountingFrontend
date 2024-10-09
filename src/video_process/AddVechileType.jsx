@@ -8,10 +8,13 @@ import {
   Dialog,
 } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addObject } from "../redux/countsSlice";
 
-const AddVechileType = ({ values, setValues }) => {
+const AddVechileType = ({ values }) => {
   const [open, setOpen] = React.useState(false);
 
+  const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -35,7 +38,7 @@ const AddVechileType = ({ values, setValues }) => {
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
             const category = formJson.category;
-            setValues([...values, category]);
+            dispatch(addObject(category));
             handleClose();
           },
         }}

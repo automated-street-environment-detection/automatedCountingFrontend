@@ -4,11 +4,11 @@ import Grid from "@mui/material/Grid2";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataInstance } from "../api/instanceApi";
-import { setCounts } from "../redux/countsSlice";
+import { strified2OBJ } from "../redux/countsSlice";
 
 const CountingPage = () => {
   const dispatch = useDispatch();
-  const newCount = useSelector((state) => state.counts.newCount);
+  const newCount = useSelector((state) => state.counts.newObj);
   const selectedVideo = useSelector((state) => state.player.selectedVideo);
   const selectedBoundary = useSelector(
     (state) => state.player.selectedBoundary
@@ -26,7 +26,7 @@ const CountingPage = () => {
           const response = await getDataInstance(payload);
           console.log(response);
           if (response.status == 1) {
-            dispatch(setCounts(JSON.parse(response.body.csv_data)));
+            dispatch(strified2OBJ(response.body.csv_data));
           }
         } catch (error) {
           console.error(error);
