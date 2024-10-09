@@ -16,13 +16,11 @@ const ChosenVideoPage = () => {
   const fileInputRef = useRef(null);
 
   // if (!username) navigate("/loginpage");
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [videoNames, setVideoNames] = useState([]);
 
-  const videoList = useSelector((state) => state.player.videoList);
-  const selectedVideo = useSelector((state) => state.player.selectedVideo);
+  const [videoList, setvideolist] = useState([]);
 
   const handleVideoSelect = (video) => {
     const awaitURL = async () => {
@@ -71,14 +69,16 @@ const ChosenVideoPage = () => {
     }
   };
 
-  const [filteredVideos, setFilteredVideos] = useState([]);
+  const filteredVideos = videoList.filter((video) =>
+    video.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     const awaitNames = async () => {
       const response = await getVideoNames();
       if (response.status == 1) {
         setVideoNames(response.body.video_names);
-        setFilteredVideos(
+        setvideolist(
           response.body.video_names.map((vid) => {
             return { title: vid };
           })

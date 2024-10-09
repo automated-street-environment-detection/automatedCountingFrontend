@@ -18,6 +18,7 @@ const countsSlice = createSlice({
         state.counts[action.payload] -= 1;
       }
     },
+    //counts{title,cars,bikes,...,timestamps}
     incrementTimeStamp: (state, action) => {
       const { type, timestamp } = action.payload; 
       const currentCount = state.counts[type] || 0; 
