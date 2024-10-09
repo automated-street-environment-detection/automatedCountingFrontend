@@ -21,7 +21,7 @@ export default function Login() {
     if (username.length > 0) {
       dispatch(login(username));
       localStorage.setItem("username", username);
-      console.log("Logged");
+      // console.log("Logged");
       navigate("/video  ");
     }
   };

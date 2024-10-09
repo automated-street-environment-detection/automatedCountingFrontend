@@ -34,7 +34,7 @@ const ChosenVideoPage = () => {
             url: response.body.video_url,
           };
           dispatch(selectVideo(selectedVideo));
-          console.log("Moving to boundary");
+          // console.log("Moving to boundary");
 
           navigate("/boundary");
         }
