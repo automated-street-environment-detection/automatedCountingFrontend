@@ -9,9 +9,9 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectCount, setNewCount } from "../redux/countsSlice";
 import { useState } from "react";
 import { postDataInstance } from "../api/instanceApi";
+import { setNewObj, setTitle } from "../redux/countsSlice";
 
 const CreateCountsButton = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const CreateCountsButton = () => {
   };
 
   const handleCreateButton = (t) => {
-    dispatch(selectCount({ title: t,timestamps:[]}));
+    dispatch(selectCount({ title: t }));
     navigate("/counting");
   };
 
@@ -63,7 +63,7 @@ const CreateCountsButton = () => {
                 const response = await postDataInstance(payload);
 
                 if (response.status == 1) {
-                  dispatch(setNewCount(true));
+                  dispatch(setNewObj(true));
                   handleCreateButton(category);
                   handleClose();
                 }

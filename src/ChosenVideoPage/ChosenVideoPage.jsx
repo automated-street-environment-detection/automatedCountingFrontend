@@ -16,7 +16,6 @@ const ChosenVideoPage = () => {
   const fileInputRef = useRef(null);
 
   // if (!username) navigate("/loginpage");
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [videoNames, setVideoNames] = useState([]);

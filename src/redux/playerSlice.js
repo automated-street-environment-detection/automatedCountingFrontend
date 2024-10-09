@@ -8,14 +8,6 @@ const playerSlice = createSlice({
     //boundary = {title:whatever, start:[0,1], end:[2,2]} change that if needed
     selectedBoundary: null,
     videoList: [
-      {
-        title: "Video 1",
-        url: "https://video-footage-storage.s3.us-east-2.amazonaws.com/20230706_Ng+Dinh+Chieu+A_Side_12h.mp4",
-      },
-      { title: "Video 2", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
-      { title: "Video 3", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
-      { title: "Video 4", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
-      { title: "Video 5", url: "https://www.youtube.com/embed/6n3pFFPSlW4" },
     ],
     boundaryList: [],
   },

@@ -9,23 +9,14 @@ import { useState } from "react";
 
 const CountingControl = () => {
   const playerTime = useSelector((state) => state.player.playerTime);
-  const [values, setValues] = useState([
-    "E-bikes",
-    "Motorbikes",
-    "Cars (personal)",
-    "Busses",
-    "Trucks",
-    "Cars (Commercial)",
-    "Vans/Minibuses",
-    "Cyclos",
-  ]);
+  const values = useSelector((state) => state.counts.objects);
 
   return (
     <Grid container spacing={2} alignItems="center">
       <Grid size={12}>
         <h2>Counting Controls</h2>
       </Grid>
-      <AddVechileType values={values} setValues={setValues} />
+      <AddVechileType values={values} />
       {/* <CountingButtons name="Test" currTime={playerTime} /> */}
       {values.map((value, index) => (
         <CountingButtons key={index} name={value} currTime={playerTime} />

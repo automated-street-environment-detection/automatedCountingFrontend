@@ -62,6 +62,7 @@ const ChosenBoundaryPage = () => {
     navigate("/boundaryCreate");
   };
   const handleBoundaryRightClick = (e, boundary) => {
+    e.stopPropagation();
     const deleteBoundary = async () => {
       try {
         const payload = {
