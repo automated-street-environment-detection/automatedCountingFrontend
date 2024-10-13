@@ -62,13 +62,16 @@ const CreateBoundary = () => {
   };
 
   useEffect(() => {
-    // Add event listener for scroll events
-    window.addEventListener("scroll", handleScroll);
+    if (!videoName) navigate("/");
+    else {
+      // Add event listener for scroll events
+      window.addEventListener("scroll", handleScroll);
 
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+      // Clean up the event listener on component unmount
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
   }, []);
 
   const saveBoundary = () => {
