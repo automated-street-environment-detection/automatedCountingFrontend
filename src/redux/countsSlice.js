@@ -40,8 +40,10 @@ const countsSlice = createSlice({
     // add an counting object and intializes to 0
     // input string object_name
     addObject: (state, action) => {
-      state.objects.push(action.payload);
-      state.counts[action.payload] = 0;
+      if (state.objects.indexOf(action.payload) === -1) {
+        state.objects.push(action.payload);
+        state.counts[action.payload] = 0;
+      }
     },
     // resets the counts slice, to start a new count
     resetCountsSlice: (state) => {
@@ -65,6 +67,13 @@ const countsSlice = createSlice({
     setNewObj: (state, action) => {
       state.newObj = action.payload;
     },
+    // Removes the category from counts slice
+    removeObject: (state, action) => {
+      if (state.objects.indexOf(action.payload) !== -1) {
+        state.objects = state.objects.filter((obj) => obj !== action.payload);
+        delete state.counts[action.payload];
+      }
+    },
   },
 });
 
@@ -76,5 +85,6 @@ export const {
   resetCountsSlice,
   strified2OBJ,
   setNewObj,
+  removeObject,
 } = countsSlice.actions;
 export default countsSlice.reducer;

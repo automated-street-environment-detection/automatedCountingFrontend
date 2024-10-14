@@ -5,7 +5,8 @@ import UndoButton from "./UndoButton.jsx";
 import SaveButton from "./SaveBotton.jsx";
 import Grid from "@mui/material/Grid2";
 import AddVechileType from "./AddVechileType.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import RemoveCategory from "./RemoveCategory.jsx";
 
 const CountingControl = () => {
   const playerTime = useSelector((state) => state.player.playerTime);
@@ -16,12 +17,19 @@ const CountingControl = () => {
       <Grid size={12}>
         <h2>Counting Controls</h2>
       </Grid>
-      <AddVechileType values={values} />
+      <Grid size={6}>
+        <AddVechileType values={values} />
+      </Grid>
+      <Grid size={6}>
+        <RemoveCategory values={values} />
+      </Grid>
       {/* <CountingButtons name="Test" currTime={playerTime} /> */}
       {values.map((value, index) => (
         <CountingButtons key={index} name={value} currTime={playerTime} />
       ))}
-      <UndoButton />
+      <Grid size={6}>
+        <UndoButton />
+      </Grid>
       <SaveButton />
     </Grid>
   );

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addBoundary } from "../redux/playerSlice";
 import { postCountingBoundary } from "../api/boundaryApi";
+import { Button, TextField } from "@mui/material";
 
 const CreateBoundary = () => {
   const [isDrawing, setIsDrawing] = useState(false);
@@ -147,18 +148,23 @@ const CreateBoundary = () => {
       </div>
       <div
         style={{
-          position: "relative", // This makes the parent a reference point for positioning
-          top: "600px",
+          position: "fixed",
+
+          bottom: 0,
+
+          left: 0,
         }}
       >
-        <input
+        <TextField
           type="text"
           placeholder="Enter title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <button onClick={saveBoundary}>Save Boundary</button>
-        <button onClick={() => navigate("/boundary")}>Cancel</button>
+        <Button onClick={saveBoundary} variant="contained">
+          Save Boundary
+        </Button>
+        <Button onClick={() => navigate("/boundary")}>Cancel</Button>
       </div>
     </div>
   );
