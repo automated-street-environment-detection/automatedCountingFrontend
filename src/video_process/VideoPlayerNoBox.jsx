@@ -1,16 +1,24 @@
 import * as React from "react";
+import { useEffect } from "react";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setPlayerTime } from "../redux/playerSlice";
 
 function VideoPlayerNoBox() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const playerTime = useSelector((state) => state.player.playerTime);
   const [playbackRate, setPlaybackRate] = React.useState(1.0);
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [duration, setDuration] = React.useState(0);
   const video = useSelector((state) => state.player.selectedVideo);
-  const videoSrc = video.url;
+  useEffect(() => {
+    if (!video || !video.title) {
+        navigate('/video'); 
+    }
+  }, [video, navigate]);
+   const videoSrc = video?.url || "";
 
   const playerRef = React.useRef(null);
   const videoContainerRef = React.useRef(null);
