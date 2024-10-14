@@ -13,7 +13,7 @@ const CountingButtons = ({ name, currTime }) => {
   const buttonClick = () => {
     dispatch(incrementCount({ object: name, timestamp: currTime }));
 
-    console.log(`Clicked button at ${currTime}}`);
+    // console.log(`Clicked button at ${currTime}}`);
     dispatch(addAction([name, currTime]));
   };
 

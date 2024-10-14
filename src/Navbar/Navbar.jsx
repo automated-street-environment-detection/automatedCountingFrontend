@@ -19,7 +19,7 @@ export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => {
-    console.log("drawerClick");
+    // console.log("drawerClick");
     setDrawerOpen(newOpen);
   };
 
@@ -33,7 +33,7 @@ export default function Navbar() {
 
   const onClick = () => {
     if (loggedIn) {
-      console.log("Login");
+      // console.log("Login");
     } else {
       navigate("/");
     }

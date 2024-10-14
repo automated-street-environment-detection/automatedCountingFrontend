@@ -20,9 +20,9 @@ const ChosenCountsPage = () => {
   );
   useEffect(() => {
     if (!selectedVideo || !selectedVideo.title) {
-        navigate('/video'); 
+      navigate("/video");
     }
-}, [selectedVideo, navigate]);
+  }, [selectedVideo, navigate]);
 
   const filteredCounts = countsList.filter((count) =>
     count.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -37,7 +37,7 @@ const ChosenCountsPage = () => {
           boundary_name: selectedBoundary.title,
           instance_name: count.title,
         };
-        console.log(payload);
+        // console.log(payload);
         const response = await deleteDataInstance(payload);
         navigate("/ChosenCountsPage");
       } catch (err) {

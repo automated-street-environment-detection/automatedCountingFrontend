@@ -11,7 +11,7 @@ const Table = ({ countsList }) => {
 
   const handleClick = (c) => {
     dispatch(setTitle(c.title));
-    console.log(c.title);
+    // console.log(c.title);
     navigate("/counting");
   };
 
