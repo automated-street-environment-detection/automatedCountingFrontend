@@ -18,6 +18,11 @@ const ChosenCountsPage = () => {
   const selectedBoundary = useSelector(
     (state) => state.player.selectedBoundary
   );
+  useEffect(() => {
+    if (!selectedVideo || !selectedVideo.title) {
+        navigate('/video'); 
+    }
+}, [selectedVideo, navigate]);
 
   const filteredCounts = countsList.filter((count) =>
     count.title.toLowerCase().includes(searchTerm.toLowerCase())

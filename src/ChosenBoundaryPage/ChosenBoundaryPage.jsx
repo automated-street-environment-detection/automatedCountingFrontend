@@ -19,10 +19,13 @@ const ChosenBoundaryPage = () => {
   const selectedVideo = useSelector((state) => state.player.selectedVideo); // Access selectedVideo
   // Check if selectedVideo is empty and navigate back
 
+  useEffect(() => {
+    if (!selectedVideo || !selectedVideo.title) {
+        navigate('/video'); 
+    }
+}, [selectedVideo, navigate]);
+
   const boundaryList = useSelector((state) => state.player.boundaryList);
-  const selectedBoundary = useSelector(
-    (state) => state.player.selectedBoundary
-  );
 
   const filteredBoundaries = boundaryList.filter((boundary) =>
     boundary.title.toLowerCase().includes(searchTerm.toLowerCase())

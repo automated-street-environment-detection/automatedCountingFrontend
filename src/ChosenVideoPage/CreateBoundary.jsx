@@ -13,7 +13,6 @@ const CreateBoundary = () => {
   const [title, setTitle] = useState("");
   const canvasRef = useRef(null);
   const videoContainerRef = useRef(null);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const videoName = useSelector((state) => state.player.selectedVideo);
 
