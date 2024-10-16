@@ -116,7 +116,11 @@ const ChosenBoundaryPage = () => {
         console.log(error);
       }
     };
-    getBoundaries();
+    if (!selectedVideo) {
+      navigate("/");
+    } else {
+      getBoundaries();
+    }
   }, []);
 
   return (

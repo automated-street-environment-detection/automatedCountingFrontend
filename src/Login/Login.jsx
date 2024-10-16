@@ -4,11 +4,11 @@
 // import outputs from "../amplify_outputs.json";
 
 import { Box, Button, Grid2, Paper, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { login } from "../redux/signInSlice";
+import { login, signOut } from "../redux/signInSlice";
 
 // Amplify.configure(outputs);
 
@@ -29,6 +29,11 @@ export default function Login() {
   const handleChange = (e) => {
     setUsername(e.target.value);
   };
+
+  useEffect(() => {
+    localStorage.setItem("username", "");
+    dispatch(signOut());
+  }, []);
 
   return (
     <Box

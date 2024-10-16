@@ -82,8 +82,11 @@ const ChosenCountsPage = () => {
         console.error(error);
       }
     };
-
-    getCounts();
+    if (!selectedVideo || !selectedBoundary) {
+      navigate("/");
+    } else {
+      getCounts();
+    }
   }, []);
 
   return (

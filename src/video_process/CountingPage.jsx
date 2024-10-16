@@ -5,8 +5,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataInstance } from "../api/instanceApi";
 import { strified2OBJ } from "../redux/countsSlice";
+import { useNavigate } from "react-router-dom";
 
 const CountingPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const newCount = useSelector((state) => state.counts.newObj);
   const selectedVideo = useSelector((state) => state.player.selectedVideo);
@@ -15,7 +17,9 @@ const CountingPage = () => {
   );
 
   useEffect(() => {
-    if (!newCount) {
+    if (!selectedVideo || !selectedBoundary) {
+      navigate("/");
+    } else if (!newCount) {
       const getData = async () => {
         try {
           const payload = {
