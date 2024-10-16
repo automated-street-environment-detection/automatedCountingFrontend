@@ -34,11 +34,13 @@ const CreateCountsButton = () => {
   };
 
   const handleCreateButton = (t) => {
-    dispatch(setTitle(t));
+  
+    console.log(t);
+    
+      dispatch(setTitle(t));
+      navigate("/counting");
 
-    navigate("/counting");
   };
-
   return (
     <>
       <Button onClick={handleOpen}>Create New Count</Button>
@@ -73,7 +75,14 @@ const CreateCountsButton = () => {
                 console.error(error);
               }
             };
+            const invalidCharacters = /[^\w]/;
+            if (category.trim() === "" || invalidCharacters.test(category)) {
+              alert("Invalid instance name. It cannot contain spaces or illegal characters.");
+              console.log("xxx"); // This should print if the validation fails
+              return;
+            } else {
             postNewCount();
+            }
           },
         }}
       >
