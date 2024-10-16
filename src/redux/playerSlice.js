@@ -7,8 +7,7 @@ const playerSlice = createSlice({
     selectedVideo: null,
     //boundary = {title:whatever, start:[0,1], end:[2,2]} change that if needed
     selectedBoundary: null,
-    videoList: [
-    ],
+    videoList: [],
     boundaryList: [],
   },
   reducers: {
@@ -32,7 +31,7 @@ const playerSlice = createSlice({
     },
     //addBoundary(boundary)
     addBoundary: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.boundaryList.push(action.payload);
     },
     //deleteBoundary(boundary.title)

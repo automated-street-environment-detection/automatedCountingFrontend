@@ -23,7 +23,6 @@ const CreateCountsButton = () => {
   const selectedBoundary = useSelector(
     (state) => state.player.selectedBoundary
   );
-  
 
   const handleClose = () => {
     setOpen(false);
@@ -54,7 +53,7 @@ const CreateCountsButton = () => {
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
             const category = formJson.category;
-            console.log(category);
+            // console.log(category);
             const postNewCount = async () => {
               try {
                 const payload = {

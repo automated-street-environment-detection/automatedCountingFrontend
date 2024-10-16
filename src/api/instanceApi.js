@@ -33,7 +33,7 @@ export const getDataInstanceNames = async (payload) => {
 
     if (response.status === 200) {
       result.status = 1;
-      console.log(response);
+      // console.log(response);
       result.body = {
         instance_name: response.data.counting_data_instance_names,
       };
