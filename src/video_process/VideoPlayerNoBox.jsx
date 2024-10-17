@@ -15,10 +15,10 @@ function VideoPlayerNoBox() {
   const video = useSelector((state) => state.player.selectedVideo);
   useEffect(() => {
     if (!video || !video.title) {
-        navigate('/video'); 
+      navigate("/video");
     }
   }, [video, navigate]);
-   const videoSrc = video?.url || "";
+  const videoSrc = video?.url || "";
 
   const playerRef = React.useRef(null);
   const videoContainerRef = React.useRef(null);
@@ -31,7 +31,7 @@ function VideoPlayerNoBox() {
 
   const handleProgress = (progress) => {
     dispatch(setPlayerTime(progress.playedSeconds));
-    setDuration(progress.loadedSeconds || playerRef.current.getDuration());
+    setDuration(playerRef.current.getDuration());
   };
 
   const handleSeekChange = (event) => {
@@ -49,12 +49,17 @@ function VideoPlayerNoBox() {
   }, [playerTime]);
 
   return (
-    <div
-      ref={videoContainerRef}
-      className="player-wrapper" 
-    >
+    <div ref={videoContainerRef} className="player-wrapper">
       {/* Adjust the ReactPlayer to take 70% of the container */}
-      <div style={{ width: '70%', height: '70%', position: 'relative', top: 0, left: 0 }}>
+      <div
+        style={{
+          width: "70%",
+          height: "70%",
+          position: "relative",
+          top: 0,
+          left: 0,
+        }}
+      >
         <ReactPlayer
           ref={playerRef}
           className="react-player"
@@ -66,11 +71,15 @@ function VideoPlayerNoBox() {
           playing={isPlaying}
           onReady={handleReady}
           onProgress={handleProgress}
+          loop={false}
         />
       </div>
 
       {/* Control buttons below or to the side of ReactPlayer */}
-      <div className="controls" style={{ marginTop: '10px', width: '70%', position: 'relative' }}>
+      <div
+        className="controls"
+        style={{ marginTop: "10px", width: "70%", position: "relative" }}
+      >
         <button onClick={() => setPlaybackRate(0.5)}>0.5x</button>
         <button onClick={() => setPlaybackRate(1.0)}>1x</button>
         <button onClick={() => setPlaybackRate(1.5)}>1.5x</button>
@@ -79,8 +88,16 @@ function VideoPlayerNoBox() {
           {isPlaying ? "Pause" : "Play"}
         </button>
 
-        <div className="progress-bar" style={{ marginTop: '10px', width: '100%', display: 'flex', alignItems: 'center' }}>
-          <span style={{ marginRight: '10px' }}>
+        <div
+          className="progress-bar"
+          style={{
+            marginTop: "10px",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <span style={{ marginRight: "10px" }}>
             {Math.floor(playerTime)} seconds
           </span>
           <input
@@ -99,4 +116,3 @@ function VideoPlayerNoBox() {
 }
 
 export default VideoPlayerNoBox;
-
