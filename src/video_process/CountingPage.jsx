@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid2";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataInstance } from "../api/instanceApi";
-import { strified2OBJ } from "../redux/countsSlice";
+import { addObject, strified2OBJ } from "../redux/countsSlice";
 import { useNavigate } from "react-router-dom";
 
 const CountingPage = () => {
@@ -37,6 +37,22 @@ const CountingPage = () => {
         }
       };
       getData();
+    } else if (newCount) {
+      const newData = [
+        "Motorcycle",
+        "Ebike",
+        "Bike",
+        "Car (Yellow License Plate)",
+        "Car (White License Plate)",
+        "Truck",
+        "Van",
+        "Bus",
+        "Pedestrian",
+        "Other",
+      ];
+      newData.forEach((obj) => {
+        dispatch(addObject(obj));
+      });
     }
   }, []);
 
