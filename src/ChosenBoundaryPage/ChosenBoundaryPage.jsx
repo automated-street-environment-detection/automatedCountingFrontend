@@ -21,9 +21,9 @@ const ChosenBoundaryPage = () => {
 
   useEffect(() => {
     if (!selectedVideo || !selectedVideo.title) {
-        navigate('/video'); 
+      navigate("/video");
     }
-}, [selectedVideo, navigate]);
+  }, [selectedVideo, navigate]);
 
   const boundaryList = useSelector((state) => state.player.boundaryList);
 
@@ -119,6 +119,7 @@ const ChosenBoundaryPage = () => {
     if (!selectedVideo) {
       navigate("/");
     } else {
+      dispatch(setBoundaryList([]));
       getBoundaries();
     }
   }, []);
