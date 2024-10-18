@@ -51,7 +51,9 @@ const CountingPage = () => {
         "Other",
       ];
       newData.forEach((obj) => {
-        dispatch(addObject(obj));
+        dispatch(addObject(`road_${obj}`));
+        dispatch(addObject(`liminal_${obj}`));
+        dispatch(addObject(`sidewalk_${obj}`));
       });
     }
   }, []);
