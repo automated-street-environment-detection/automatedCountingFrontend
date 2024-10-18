@@ -41,6 +41,20 @@ function VideoPlayerNoBox() {
       dispatch(setPlayerTime(newTime));
     }
   };
+  const handleKeyDown = (event) => {
+    if (event.code === 'Space') {
+      event.preventDefault();
+      setIsPlaying((prev) => !prev);
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   React.useEffect(() => {
     if (playerRef.current) {
