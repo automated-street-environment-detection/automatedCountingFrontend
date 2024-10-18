@@ -43,6 +43,7 @@ const countsSlice = createSlice({
       if (state.objects.indexOf(action.payload) === -1) {
         state.objects.push(action.payload);
         state.counts[action.payload] = 0;
+        state.objects.sort();
       }
     },
     // resets the counts slice, to start a new count
