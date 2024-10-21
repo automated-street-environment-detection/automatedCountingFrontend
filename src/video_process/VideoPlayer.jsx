@@ -56,6 +56,9 @@ const VideoPlayer = () => {
           height:'100%', 
         }}
       />
+
+      {/* Add ManualBoundingBoxDrawer component */}
+      <ManualBoundingBoxDrawer canvasRef={canvasRef} />
     </div>
   );
 };
