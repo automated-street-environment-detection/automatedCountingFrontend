@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import VideoPlayerNoBox from './VideoPlayerNoBox';  
-import ManualBoundingBoxDrawer from './ManualBoundingBoxDrawer';
 
 const VideoPlayer = () => {
   const videoContainerRef = useRef(null); 
@@ -58,8 +57,6 @@ const VideoPlayer = () => {
         }}
       />
 
-      {/* Add ManualBoundingBoxDrawer component }
-      <ManualBoundingBoxDrawer canvasRef={canvasRef} />*/}
     </div>
   );
 };
