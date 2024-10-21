@@ -58,8 +58,8 @@ const VideoPlayer = () => {
         }}
       />
 
-      {/* Add ManualBoundingBoxDrawer component */}
-      <ManualBoundingBoxDrawer canvasRef={canvasRef} />
+      {/* Add ManualBoundingBoxDrawer component }
+      <ManualBoundingBoxDrawer canvasRef={canvasRef} />*/}
     </div>
   );
 };
