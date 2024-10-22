@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import VideoPlayerNoBox from './VideoPlayerNoBox';  
+import ManualBoundingBoxDrawer from './ManualBoundingBoxDrawer';
 
 const VideoPlayer = () => {
   const videoContainerRef = useRef(null); 
@@ -54,6 +55,14 @@ const VideoPlayer = () => {
           zIndex: 1, 
           width:'100%', 
           height:'100%', 
+        }}
+      />
+
+      <ManualBoundingBoxDrawer 
+        videoElement={videoContainerRef.current}
+        onBoxesChange={(boxes) => {
+          // Optional: Handle updated boxes array here
+          console.log('Active boxes:', boxes);
         }}
       />
 
